@@ -1,0 +1,21 @@
+import React from 'react';
+import './Footer.css';
+
+function Footer(){
+
+  return(
+    <footer className="footer">
+      <p className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm.</p>
+      <hr className="footer__stroke"/>
+      <div className="footer__elements">
+        <span className="footer__copyright">© 2022</span>
+        <div className="footer__links">
+          <a className="footer__link" href="https://practicum.yandex.ru" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
+          <a className="footer__link" href="https://github.com/YuryAmonsky" target="_blank" rel="noreferrer">Github</a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;
