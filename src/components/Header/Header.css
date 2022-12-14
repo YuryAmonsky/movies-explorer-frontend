@@ -12,9 +12,15 @@
   align-items: center;
 }
 
-.logo {
+.logo-image {
   width: 38px;
+  object-fit: cover;
+  transition: .3s;  
 }
+
+.logo-image:hover {
+  transform: scale(1.05);
+}  
 
 .nav-bar {
   display: flex;
@@ -28,7 +34,13 @@
   font-size: 12px;
   line-height: 16px;
   text-decoration: none;
+  text-align: center;
   color: #fff;
+  transition: .3s;
+}
+
+.nav-bar__link:hover {
+  transform: scale(1.05);
 }
 
 .nav-bar__button {
@@ -38,13 +50,15 @@
   border-radius: 3px;
   width: 72px;
   background: none;
-  background-color: #2BE080;
+  background-color: #2be080;
   min-height: 32px;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
+  transition: .3s;
 }
 
 .nav-bar__button:hover {
   cursor: pointer;
+  transform: scale(1.05);
 }

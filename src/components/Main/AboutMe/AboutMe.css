@@ -81,6 +81,12 @@
   line-height: 17px;
   text-decoration: none;
   color: #000;
+  transition: all .3s;
+}
+
+.about-me__link:hover {  
+  transform: scale(1.05);
+  color: #2be080;
 }
 
 .portfolio {
@@ -103,7 +109,7 @@
 }
 
 .portfolio__link {
-  margin: 0;
+  margin: 0;  
   display: flex;
   justify-content: space-between;
   font-weight: 400;
@@ -113,6 +119,21 @@
   letter-spacing: -0.04em;
   text-decoration: none;
   color: #000;
+  transition: all .3s;
+}
+
+.portfolio__link:hover .portfolio__link-text {  
+  transform: translate(5%,0);
+  color: #2be080;
+}
+.portfolio__link:hover .portfolio__link-arrow {
+  transform: rotate(45deg);
+  color: #2be080;
+}  
+
+.portfolio__link-text {
+  width: 440px;
+  transition: all .3s;
 }
 
 .portfolio__link-arrow { 
@@ -122,6 +143,7 @@
   line-height: 60px;
   /* identical to box height, or 200% */
   letter-spacing: -0.04em;
+  transition: all .3s;
 }
 
 .portfolio__stroke {

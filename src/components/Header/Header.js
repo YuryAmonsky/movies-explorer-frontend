@@ -7,7 +7,9 @@ function Header(props) {
   return (
     <>      
       <header className="header">
-        <img className="logo" src={logo} alt="значок в зеленом кружке" />
+        <Link exact to="/" className="logo">
+          <img className="logo-image" src={logo} alt="значок в зеленом кружке" />
+        </Link>  
         <nav className="nav-bar">
           {props.isLanding ?
             <>

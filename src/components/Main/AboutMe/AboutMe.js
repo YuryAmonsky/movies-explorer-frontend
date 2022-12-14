@@ -24,21 +24,21 @@ function AboutMe(){
         <ul className='portfolio__links'>
           <li>
             <a href={'https://yuryamonsky.github.io/how-to-learn/'} target="_blank" rel="noreferrer" className="portfolio__link">
-              <span>Статичный сайт</span>
+              <span className="portfolio__link-text">Статичный сайт</span>
               <span className="portfolio__link-arrow">↗</span>
             </a>
           </li>
           <hr className="portfolio__stroke"/>
           <li>
             <a href={'https://yuryamonsky.github.io/russian-travel/'} target="_blank" rel="noreferrer" className="portfolio__link">              
-              <span>Адаптивный сайт</span>
+              <span className="portfolio__link-text">Адаптивный сайт</span>
               <span className="portfolio__link-arrow">↗</span>
             </a>
           </li>
           <hr className="portfolio__stroke"/>
           <li>
             <a href={'https://amo.edu.nomoredomains.icu'} target="_blank" rel="noreferrer" className="portfolio__link">              
-              <span>Одностраничное приложение</span>
+              <span className="portfolio__link-text">Одностраничное приложение</span>
               <span className="portfolio__link-arrow">↗</span>
             </a>
           </li>

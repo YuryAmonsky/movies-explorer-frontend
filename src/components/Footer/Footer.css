@@ -50,6 +50,12 @@
   font-size: 13px;
   line-height: 16px;
   /* identical to box height */
-  text-decoration: none;
+  text-decoration: none; 
   color: #000;
+  transition: all .5s;
+}
+
+.footer__link:hover {  
+  transform: scale(1.05);
+  color: #2be080;
 }

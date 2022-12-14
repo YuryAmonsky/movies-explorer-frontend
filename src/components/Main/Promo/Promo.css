@@ -45,7 +45,13 @@
   font-size: 12px;
   line-height: 16px;
   color: #fff;
+  transition: .3s;
 }
+
+.promo__button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}  
 
 .promo__logo {
   grid-column: 2;
