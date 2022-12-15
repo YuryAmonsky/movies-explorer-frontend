@@ -17,6 +17,7 @@ import film13 from '../../images/content/rudboy.png';
 import film14 from '../../images/content/skate.png';
 import film15 from '../../images/content/arts_war.png';
 import film16 from '../../images/content/zone.png';
+import MoreButton from '../Movies/MoreButton/MoreButton';
 
 function MoviesCardList() {  
   return (
@@ -119,9 +120,7 @@ function MoviesCardList() {
           duration='1ч 42м'
         />
       </ul>
-      <div className="card-list__more-movies">
-        <button className="card-list__more-movies-button" type="button">Ещё</button>
-      </div>
+      <MoreButton/>      
     </>
 
   );
