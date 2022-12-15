@@ -25,7 +25,9 @@
   grid-column: 1/ span 2;
   margin: 23px auto 70px;
   width: 100%;
-  border-bottom: 1px solid #000;  
+  height: 1px;
+  border: 0;
+  background-color: #000;
 }
 
 .description__text-container {

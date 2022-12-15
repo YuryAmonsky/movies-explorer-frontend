@@ -1,26 +1,30 @@
-.header {
+.header {  
   grid-column: 1 / span 2;
   grid-row: 1;
-  margin: 0 auto 75px;
-  min-width: 320px;
-  max-width: 1140px;
+  padding: 0 70px 0;
+  box-sizing: border-box;
+  min-width: 320px;  
   width: 100%;
   min-height: 74px;
   display: flex;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   justify-content: space-between;
   align-items: center;
+}
+
+.header_type_landing {  
+  background: #5c5c5c;
 }
 
 .logo-image {
   width: 38px;
   object-fit: cover;
-  transition: .3s;  
+  transition: .3s;
 }
 
 .logo-image:hover {
   transform: scale(1.05);
-}  
+}
 
 .nav-bar {
   display: flex;
@@ -43,12 +47,36 @@
   transform: scale(1.05);
 }
 
+.nav-bar__link_theme_light {
+  color: #000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.nav-bar__link_w-icon {
+  margin-left: 30px;
+  display: flex;
+  column-gap: 13px;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.nav-bar__link_active {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+
 .nav-bar__button {
   margin: 0 0 0 10px;
   padding: 0;
   border: none;
   border-radius: 3px;
-  width: 72px;
+  width: 76px;
   background: none;
   background-color: #2be080;
   min-height: 32px;
@@ -61,4 +89,15 @@
 .nav-bar__button:hover {
   cursor: pointer;
   transform: scale(1.05);
+}
+
+.nav-bar__link-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  background-image: url(../../images/ui/icon_account.svg);
+  background-size: 11.38px 11.67px;
+  background-position: center;
+  background-repeat: no-repeat;
 }

@@ -1,8 +1,8 @@
 .about-me {
-  padding: 100px 70px 0;
+  padding: 110px 70px 0;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
 }
 
 .about-me__title {
@@ -19,7 +19,9 @@
 .about-me__stroke {
   margin: 23px auto 66px;
   width: 100%;
-  border-bottom: 1px solid #000;
+  height: 1px;
+  border: 0;
+  background-color: #000;
 }
 
 .about-me__resume-container {
@@ -84,13 +86,13 @@
   transition: all .3s;
 }
 
-.about-me__link:hover {  
+.about-me__link:hover {
   transform: scale(1.05);
   color: #2be080;
 }
 
 .portfolio {
-  margin-bottom: 125px;
+  margin-bottom: 115px;
 }
 
 .portfolio__title {
@@ -109,7 +111,7 @@
 }
 
 .portfolio__link {
-  margin: 0;  
+  margin: 0;
   display: flex;
   justify-content: space-between;
   font-weight: 400;
@@ -122,22 +124,23 @@
   transition: all .3s;
 }
 
-.portfolio__link:hover .portfolio__link-text {  
-  transform: translate(5%,0);
+.portfolio__link:hover .portfolio__link-text {
+  transform: translate(5%, 0);
   color: #2be080;
 }
+
 .portfolio__link:hover .portfolio__link-arrow {
   transform: rotate(45deg);
   color: #2be080;
-}  
+}
 
 .portfolio__link-text {
   width: 440px;
   transition: all .3s;
 }
 
-.portfolio__link-arrow { 
-  
+.portfolio__link-arrow {
+
   font-weight: 400;
   font-size: 30px;
   line-height: 60px;

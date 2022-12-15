@@ -21,7 +21,9 @@
 .techs__stroke {
   margin: 23px auto 90px;
   width: 100%;
-  border-bottom: 1px solid #000;
+  height:1px;
+  border: 0;
+  background-color: #000;
 }
 
 .techs__main-text {
@@ -48,6 +50,8 @@
 }
 
 .techs__list {
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   column-gap: 10px;
