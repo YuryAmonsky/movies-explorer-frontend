@@ -17,110 +17,152 @@ import film13 from '../../images/content/rudboy.png';
 import film14 from '../../images/content/skate.png';
 import film15 from '../../images/content/arts_war.png';
 import film16 from '../../images/content/zone.png';
-import MoreButton from '../Movies/MoreButton/MoreButton';
 
-function MoviesCardList() {  
+function MoviesCardList({isSavedMoviesOpen}) {  
   return (
     <>
-      <ul className='card-list'>
-        <MovieCard
-          link={film1}
-          caption='33 слова о дизайне'
-          favorite={true}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film2}
-          caption='Киноальманах «100 лет дизайна»'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film3}
-          caption='В погоне за Бенкси'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film4}
-          caption='Баския: Взрыв реальности'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film5}
-          caption='Бег это свобода'
-          favorite={true}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film6}
-          caption='Книготорговцы'
-          favorite={true}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film7}
-          caption='Когда я думаю о Германии ночью'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film8}
-          caption='Gimme Danger: История Игги и The Stooges'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film9}
-          caption='Дженис: Маленькая девочка грустит'
-          favorite={true}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film10}
-          caption='Соберись перед прыжком'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film11}
-          caption='Пи Джей Харви: A dog called money'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film12}
-          caption='По волнам: Искусство звука в кино'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film13}
-          caption='Рудбой'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film14}
-          caption='Скейт — кухня'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film15}
-          caption='Война искусств'
-          favorite={false}
-          duration='1ч 42м'
-        />
-        <MovieCard
-          link={film16}
-          caption='Зона'
-          favorite={true}
-          duration='1ч 42м'
-        />
-      </ul>
-      <MoreButton/>      
+      {
+        isSavedMoviesOpen ?
+          <ul className='card-list'>
+            <MovieCard
+              link={film1}
+              caption='33 слова о дизайне'
+              favorite={true}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {true}
+            />
+            <MovieCard
+              link={film2}
+              caption='Киноальманах «100 лет дизайна»'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {true}
+            />
+            <MovieCard
+              link={film3}
+              caption='В погоне за Бенкси'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {true}
+            /> 
+          </ul>
+        :
+          <ul className='card-list'>
+            <MovieCard
+              link={film1}
+              caption='33 слова о дизайне'
+              favorite={true}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film2}
+              caption='Киноальманах «100 лет дизайна»'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film3}
+              caption='В погоне за Бенкси'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film4}
+              caption='Баския: Взрыв реальности'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film5}
+              caption='Бег это свобода'
+              favorite={true}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film6}
+              caption='Книготорговцы'
+              favorite={true}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film7}
+              caption='Когда я думаю о Германии ночью'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film8}
+              caption='Gimme Danger: История Игги и The Stooges'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film9}
+              caption='Дженис: Маленькая девочка грустит'
+              favorite={true}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film10}
+              caption='Соберись перед прыжком'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film11}
+              caption='Пи Джей Харви: A dog called money'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film12}
+              caption='По волнам: Искусство звука в кино'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film13}
+              caption='Рудбой'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film14}
+              caption='Скейт — кухня'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film15}
+              caption='Война искусств'
+              favorite={false}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+            <MovieCard
+              link={film16}
+              caption='Зона'
+              favorite={true}
+              duration='1ч 42м'
+              isSavedMoviesOpen = {false}
+            />
+          </ul>
+      }
+      
     </>
 
   );

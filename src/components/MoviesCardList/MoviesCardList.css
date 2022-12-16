@@ -9,28 +9,3 @@
   min-width: 320px;
   width: 100%;
 }
-
-.card-list__more-movies {
-  padding: 50px 0 80px;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.card-list__more-movies-button {
-  width: 320px;
-  height: 36px;
-  background: none;
-  border: 1px solid #e8e8e8;
-  border-radius: 3px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.card-list__more-movies-button:hover {
-  color: #2be080;
-}

@@ -9,22 +9,31 @@
 
 .search-form__search-container {
   display: flex;
+  column-gap: 10px;
   justify-content: space-between;
 }
 
 .search-form__input {
   margin: 0;
-  padding: 0;
+  padding: 0;  
   border: none;
+  width: 100%;
   font-weight: 500;
   font-size: 28px;
   line-height: 34px;
-  /* identical to box height */
-  color: #A0A0A0;
+  /* identical to box height */    
+}
+
+.search-form__input:hover {
+  outline: 1px solid #2be080;
+  border-radius: 3px;
 }
 
 .search-form__input:focus {
   outline: none;
+}
+.search-form__input::placeholder {
+  color: #a0a0a0;
 }
 
 .search-form__submit-button {
@@ -33,7 +42,7 @@
   border: none;
   border-radius: 50%;
   background-color: #2be080;
-  background-image: url(../../../images/ui/search-button.svg);
+  background-image: url(../../images/ui/search-button.svg);
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -84,10 +93,10 @@
   display: inline-block;
   width: 36px;
   height: 20px;
-  background-image: url(../../../images/ui/smalltumboff.svg);
+  background-image: url(../../images/ui/smalltumboff.svg);
 }
 
 
 .search-form__filter:checked+label::before {
-  background-image: url(../../../images/ui/smalltumb.svg);
+  background-image: url(../../images/ui/smalltumb.svg);
 }
