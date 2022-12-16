@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
 
 function App() {
@@ -31,6 +32,12 @@ function App() {
           </main>
           <Footer />
         </Route>
+        <Route path="/profile">
+          <Header isLanding={false} />
+          <main>
+            <Profile/>
+          </main>         
+        </Route>              
       </Switch>
     </div>
   );
