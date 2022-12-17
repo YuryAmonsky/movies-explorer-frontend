@@ -16,16 +16,6 @@
   background: #5c5c5c;
 }
 
-.logo-image {
-  width: 38px;
-  object-fit: cover;
-  transition: .3s;
-}
-
-.logo-image:hover {
-  transform: scale(1.05);
-}
-
 .nav-bar {
   display: flex;
   justify-content: flex-end;
@@ -44,7 +34,8 @@
 }
 
 .nav-bar__link:hover {
-  transform: scale(1.05);
+  text-shadow: 0 4px 3px #00000060;
+  /*transform: scale(1.05);*/
 }
 
 .nav-bar__link_theme_light {
@@ -84,11 +75,13 @@
   font-size: 12px;
   line-height: 16px;
   transition: .3s;
+  cursor: pointer;
 }
 
-.nav-bar__button:hover {
-  cursor: pointer;
-  transform: scale(1.05);
+.nav-bar__button:hover { 
+  text-shadow: 0 4px 3px #00000060; 
+  box-shadow: 0 4px 4px #00000060; 
+  /*transform: scale(1.05);*/
 }
 
 .nav-bar__link-icon {

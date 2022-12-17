@@ -6,6 +6,9 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -17,6 +20,16 @@ function App() {
             <Main />
           </main>
           <Footer />
+        </Route>
+        <Route exact path="/signup">
+          <main>
+            <Register />
+          </main>
+        </Route>
+        <Route exact path="/signin">
+          <main>
+            <Login />
+          </main>
         </Route>
         <Route path="/movies">
           <Header isLanding={false} />
@@ -35,9 +48,12 @@ function App() {
         <Route path="/profile">
           <Header isLanding={false} />
           <main>
-            <Profile/>
-          </main>         
-        </Route>              
+            <Profile />
+          </main>
+        </Route>
+        <Route path="*">                    
+            <PageNotFound/>
+        </Route>
       </Switch>
     </div>
   );

@@ -46,11 +46,13 @@
   line-height: 16px;
   color: #fff;
   transition: .3s;
+  cursor: pointer;
 }
 
 .promo__button:hover {
-  cursor: pointer;
-  transform: scale(1.05);
+  text-shadow: 0 4px 3px #00000060; 
+  box-shadow: 0 4px 4px #00000060;
+  /*transform: scale(1.05);*/
 }  
 
 .promo__logo {

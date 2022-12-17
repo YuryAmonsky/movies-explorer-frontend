@@ -1,15 +1,13 @@
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom'
-import logo from '../../images/logo/logo.svg';
+import {NavLink} from 'react-router-dom';
 import './Header.css';
+import Logo from '../Logo/Logo';
 
 function Header(props) {
   return (
     <>      
       <header className={`header ${props.isLanding ? "header_type_landing":""}`}>
-        <Link to="/" className="logo">
-          <img className="logo-image" src={logo} alt="значок в зеленом кружке" />
-        </Link>  
+        <Logo/>
         <nav className="nav-bar">
           {props.isLanding === true ?
             <>

@@ -59,6 +59,7 @@
 }
 
 .footer__link:hover {  
-  transform: scale(1.05);
-  color: #2be080;
+  text-shadow: 0 4px 3px #00000060;
+  /*transform: scale(1.05);
+  color: #2be080;*/
 }

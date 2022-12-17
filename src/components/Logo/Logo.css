@@ -1,0 +1,9 @@
+.logo-image {
+  width: 38px;
+  object-fit: cover;
+  transition: .3s;
+}
+
+.logo-image:hover {  
+  transform: scale(1.05);
+}
