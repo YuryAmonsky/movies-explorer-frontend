@@ -21,6 +21,7 @@ function Header(props) {
                 <span>Аккаунт</span>
                 <div className="nav-bar__link-icon"></div>
               </NavLink>
+              <button className="burger-button" type="button"></button>
             </>          
           }
         </nav>        

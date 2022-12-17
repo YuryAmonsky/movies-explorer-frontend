@@ -1,9 +1,9 @@
-.header {  
+.header {
   grid-column: 1 / span 2;
   grid-row: 1;
   padding: 0 70px 0;
   box-sizing: border-box;
-  min-width: 320px;  
+  min-width: 320px;
   width: 100%;
   min-height: 74px;
   display: flex;
@@ -12,7 +12,7 @@
   align-items: center;
 }
 
-.header_type_landing {  
+.header_type_landing {
   background: #5c5c5c;
 }
 
@@ -78,9 +78,9 @@
   cursor: pointer;
 }
 
-.nav-bar__button:hover { 
-  text-shadow: 0 4px 3px #00000060; 
-  box-shadow: 0 4px 4px #00000060; 
+.nav-bar__button:hover {
+  text-shadow: 0 4px 3px #00000060;
+  box-shadow: 0 4px 4px #00000060;
   /*transform: scale(1.05);*/
 }
 
@@ -93,4 +93,48 @@
   background-size: 11.38px 11.67px;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.burger-button {
+  display: none;
+}
+
+@media screen and (min-width:769px) and (max-width:1279px) {
+  .header {
+    padding: 0 calc(30px + 40 * (100vw - 769px)/511) 0;
+  }  
+}
+
+@media screen and (min-width:320px) and (max-width:768px) {
+  .header {
+    padding: 0 calc(14px + 16 * (100vw - 320px)/448) 0;
+  }
+
+  .nav-bar {
+    column-gap: calc(4px + 16 * (100vw - 320px)/448);
+  }
+
+  .nav-bar__link {
+    font-size: calc(10px + 2 * (100vw - 320px)/448);
+  }
+  .nav-bar__link_theme_light {
+    display: none;
+  }
+
+  .nav-bar__button {
+    width: calc(54px + 22 * (100vw - 320px)/448);
+    font-size: calc(10px + 2 * (100vw - 320px)/448);
+  }
+   
+  .burger-button {
+    display: block;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: none;
+    background-image: url(../../images/ui/burger.svg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }  
 }
