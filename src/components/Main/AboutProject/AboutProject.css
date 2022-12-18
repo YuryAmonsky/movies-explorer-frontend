@@ -32,7 +32,6 @@
 
 .description__text-container {
   margin-bottom: 110px;
-  grid-row: 3;
   width: 550px;
   display: flex;
   flex-direction: column;
@@ -43,7 +42,7 @@
   margin: 0;
   padding: 0;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400; 
 }
 
 .description__paragraph_font_large {
@@ -77,6 +76,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   text-align: center;
@@ -101,4 +101,94 @@
   /* identical to box height, or 121% */
   text-align: center;
   color: #A0A0A0;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1280px) {
+  .description {
+    padding: calc(90px + 20 * (100vw - 769px)/511) calc(50px + 20 * (100vw - 769px)/511);    
+    column-gap: calc(30px + 10 * (100vw - 769px)/511);
+  }
+
+  .description__text-container {
+    margin-bottom: calc(93px + 17 * (100vw - 769px)/511);
+    width: calc(319px + 231 * (100vw - 769px)/511);
+    row-gap: calc(22px + 4 * (100vw - 769px)/511);
+  }
+
+  .description__paragraph_font_small {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .description__period-block_type_back-end {
+    width: calc(140px + 88 * (100vw - 769px)/511);
+  }
+  
+  .description__period-block_type_front-end {
+    width: calc(528px + 384 * (100vw - 769px)/511);
+  }
+
+  .description__period-caption {
+    font-weight: 400;
+  }  
+}
+
+@media screen and (min-width:320px) and (max-width:768px) {
+  .description {
+    padding: calc(70px + 20 * (100vw - 320px)/448) calc(18px + 32 * (100vw - 320px)/448);
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(5, min-content);
+    column-gap: 0;
+  }
+  
+  .description__title {    
+    grid-row: 1;
+    grid-column: 1;    
+    font-size: calc(18px + 4 * (100vw - 320px)/448);
+    line-height: calc(22px + 5 * (100vw - 320px)/448);
+  }
+
+  .description__stroke {
+    grid-row: 2;
+    grid-column: 1;
+    margin: calc(28px - 5 * (100vw - 320px)/448) auto calc(60px + 10 * (100vw - 320px)/448);    
+  }
+
+  .description__text-container {
+    grid-column: 1;
+    justify-self: center;
+    margin-bottom: calc(56px + 37 * (100vw - 320px)/448);
+    width: calc(284px + 35 * (100vw - 320px)/448);
+    row-gap: calc(16px + 6 * (100vw - 320px)/448);
+  }  
+
+  .description__paragraph_font_large {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .description__paragraph_font_small {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  
+  .description__time-frame {
+    grid-row: 5;
+    grid-column: 1;
+    padding-top: 4px;
+  }
+
+  .description__period-block_type_back-end {
+    width: calc(100px + 40 * (100vw - 320px)/448);
+  }
+  
+  .description__period-block_type_front-end {
+    width: calc(184px + 344 * (100vw - 320px)/448);
+  }
+
+  .description__period-caption {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+  }  
 }
