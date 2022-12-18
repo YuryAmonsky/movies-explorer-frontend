@@ -1,5 +1,6 @@
 .promo {
   padding: 75px 70px;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: max-content min-content;
   grid-template-rows: repeat(3, min-content);
@@ -15,7 +16,7 @@
   width: 640px;
   font-weight: 400;
   font-size: 50px;
-  line-height: 58px;
+  line-height: 58px;  
   color: #fff;
 }
 
@@ -64,4 +65,78 @@
 
 .new-line {
   display: inline;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1280px) {
+  .promo {
+    padding: 140px 30px 76px;    
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(4, min-content);
+    justify-items: center;
+    column-gap: 0;    
+  }
+
+  .promo__title {
+    grid-row: 2;
+    margin: 0 0 22px;
+    font-size: 40px;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  .new-line {
+    display: none;
+  }
+
+  .promo__subtitle {
+    grid-row: 3;
+    margin: 0 0 92px;
+    padding: 0;
+    width: 260px;
+    text-align: center;
+  }
+
+  .promo__logo {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 48px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .promo {
+    padding: calc(70px + 70 * (100vw - 320px)/448) calc(10px + 20 * (100vw - 320px)/448) calc(30px + 46 * (100vw - 320px)/448);
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(4, min-content);
+    justify-items: center;  
+  }
+
+  .promo__title {
+    grid-row: 2;
+    margin: 0 0 calc(24px - 2 * (100vw - 320px)/448);
+    width: calc(300px + 340 * (100vw - 320px)/448);
+    font-size: calc(30px + 10 * (100vw - 320px)/448);
+    line-height: calc(38px + 12 * (100vw - 320px)/448);
+    letter-spacing: -0.04em;
+    text-align: center;
+  }
+
+  .new-line {
+    display: none;
+  }
+
+  .promo__subtitle {
+    grid-row: 3;
+    margin: 0 0 calc(80px + 12 * (100vw - 320px)/448);
+    padding: 0;
+    width: 260px;
+    text-align: center;
+  }
+
+  .promo__logo { 
+    grid-column: 1;
+    grid-row: 1;   
+    margin-bottom: calc(44px + 4 * (100vw - 320px)/448);
+    width: calc(210px + 100 * (100vw - 320px)/448);
+  }
 }
