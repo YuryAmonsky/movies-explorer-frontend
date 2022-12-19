@@ -22,3 +22,9 @@
 .more-movies-button:hover {
   color: #2be080;
 }
+
+@media screen and (max-width: 767px) {
+  .more-movies-button {
+    width: calc(240px + 80 * (100vw - 320px)/447);
+  }
+}

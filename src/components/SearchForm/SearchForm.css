@@ -15,13 +15,13 @@
 
 .search-form__input {
   margin: 0;
-  padding: 0;  
+  padding: 0;
   border: none;
-  width: 100%;
+  width: calc(100% - 44px);
   font-weight: 500;
   font-size: 28px;
   line-height: 34px;
-  /* identical to box height */    
+  /* identical to box height */
 }
 
 .search-form__input:hover {
@@ -32,11 +32,14 @@
 .search-form__input:focus {
   outline: none;
 }
+
 .search-form__input::placeholder {
   color: #a0a0a0;
 }
 
 .search-form__submit-button {
+  margin: 0;
+  padding: 0;
   width: 34px;
   height: 34px;
   border: none;
@@ -52,6 +55,7 @@
 .search-form__submit-button:hover {
   transform: rotate(360deg);
 }
+
 
 .search-form__stroke {
   margin: 13px auto 32px;
@@ -69,9 +73,6 @@
 .search-form__filter {
   width: 36px;
   height: 20px;
-  position: absolute;
-  z-index: 1;
-  opacity: 0;
   cursor: pointer;
 }
 
@@ -81,14 +82,7 @@
   line-height: 18px;
 }
 
-.search-form__filter+label {
-  display: inline-flex;
-  align-items: center;
-  column-gap: 14px;
-  user-select: none;
-}
-
-.search-form__filter+label::before {
+.search-form__filter::before {
   content: '';
   display: inline-block;
   width: 36px;
@@ -96,7 +90,46 @@
   background-image: url(../../images/ui/smalltumboff.svg);
 }
 
-
-.search-form__filter:checked+label::before {
+.search-form__filter:checked::before {
   background-image: url(../../images/ui/smalltumb.svg);
+}
+
+@media screen and (max-width: 1297px) {
+  .search-form {
+    padding: calc(80px - 10 * (100vw - 768px)/511) calc(30px + 40 * (100vw - 768px)/511) calc(60px - 14 * (100vw - 768px)/511);
+  }
+  
+}
+
+@media screen and (max-width: 767px) {
+  .search-form {
+    padding: calc(80px - 10 * (100vw - 320px)/447) calc(14px + 26 * (100vw - 320px)/447) calc(50px + 10 * (100vw - 320px)/447);
+  }
+
+  .search-form__filter-container {
+    display: flex;
+    column-gap: 16px;
+    justify-content: flex-end;
+  }
+  
+  .search-form__input {    
+    width: calc(100% - 44px);
+    font-size: calc(18px + 10 * (100vw - 320px)/447);
+    line-height: calc(22px + 12 * (100vw - 320px)/447);
+  } 
+
+  .search-form__filter {
+    order: 2;
+  }
+
+  .search-form__filter-label {
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-form__filter-container {
+    column-gap: 13px;
+    justify-content: center;
+  }
 }
