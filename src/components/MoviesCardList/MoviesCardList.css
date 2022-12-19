@@ -4,8 +4,50 @@
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(4, 270px);
+  justify-content: center;
   column-gap: 20px;
   row-gap: 38px;
   min-width: 320px;
   width: 100%;
+}
+
+@media screen and (max-width:1279px) {
+  .card-list {
+    padding: 70px calc(30px + 40 * (100vw - 768px)/511) 10px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width:1024px) {
+  .card-list {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 34px;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .card-list {
+    padding: calc(40px + 30 * (100vw - 320px)/448) calc(10px + 20 * (100vw - 320px)/448) 10px;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: calc(10px + 20 * (100vw - 320px)/448);
+    row-gap: 30px;
+  }
+
+}
+
+@media screen and (max-width:540px) {
+  .card-list {
+    grid-template-columns: 1fr;
+    column-gap: 0px;
+    row-gap: 32px;
+  }
+
+}
+
+@media screen and (max-width:320px) {
+  .card-list {
+    padding: 40px 10px 10px;
+    row-gap: 34px;
+  }
+
 }
