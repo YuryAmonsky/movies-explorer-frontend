@@ -69,7 +69,6 @@
   border: none;
   grid-column: 1/span 2;
   grid-row: 3;
-
 }
 
 .movie-card__duration {
@@ -86,30 +85,22 @@
 
 @media screen and (max-width:1279px) {
   .movie-card {    
-    /*width: calc(270px - 54 * (100vw - 768px)/511);*/
     width: auto;
   }
 
   .movie-card__caption {
     width: auto;
   }
-  
 }
-
 
 @media screen and (max-width:768px) {
   .movie-card {
-    /*width: 339px;*/
     width: auto;
   }
 
   .movie-card__stroke {
     margin: 29px 0 6px;  
   }  
-}
-
-@media screen and (max-width:520px) {
- 
 }
 
 @media screen and (max-width:320px) {  

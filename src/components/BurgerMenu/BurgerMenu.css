@@ -1,12 +1,13 @@
 .burger-menu {
   position: absolute;
-  top:0;
+  top: 0;
   right: 0;
   z-index: 1000;
   overflow: hidden;
-  padding: 22.44px 22.44px 92px;
+  padding: 29.16px 29.16px 92px;
+
   box-sizing: border-box;
-  width: 520px;
+  width: 68%;
   height: 100vh;
   display: none;
   opacity: 0;
@@ -26,11 +27,12 @@
   grid-row: 1;
   justify-self: end;
   padding: 0;
-  width:44px;
-  height:44px;
+  width: 22px;
+  height: 22px;
   border: 0;
   background: none;
   background-image: url(../../images/ui/close_burger.svg);
+  background-position: center;
   background-repeat: no-repeat;
 }
 
@@ -68,6 +70,7 @@
   font-size: 14px;
   line-height: 16px;
 }
+
 .burger-menu__link-icon {
   width: 30px;
   height: 30px;
@@ -77,4 +80,16 @@
   background-size: 11.38px 11.67px;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+@media screen and (min-width:769px) {
+  .burger-menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width:540px) {
+  .burger-menu {
+    width: 100%;
+  }
 }

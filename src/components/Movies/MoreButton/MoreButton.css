@@ -23,8 +23,8 @@
   color: #2be080;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .more-movies-button {
-    width: calc(240px + 80 * (100vw - 320px)/447);
+    width: calc(240px + 80 * (100vw - 320px)/448);
   }
 }
