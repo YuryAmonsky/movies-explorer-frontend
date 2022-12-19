@@ -64,21 +64,21 @@
   color: #2be080;*/
 }
 
-@media screen and (min-width:769px) and (max-width:1279px) {
+@media screen and (max-width:1279px) {
   .footer {
-    padding: 79px calc(30px + 40 * (100vw - 769px)/511) 20px;
+    padding: 79px calc(30px + 40 * (100vw - 768px)/511) 20px;
   }
 }
 
 
-@media screen and (min-width:320px) and (max-width:768px) {
+@media screen and (max-width:767px) {
 
   .footer {
-    padding: 79px calc(10px + 20 * (100vw - 320px)/448) 20px;
+    padding: 79px calc(10px + 20 * (100vw - 320px)/447) 20px;
   }
 
   .footer__stroke {
-    margin: 20px auto calc(10px + 10 * (100vw - 320px)/448);
+    margin: 20px auto calc(10px + 10 * (100vw - 320px)/447);
   }
 }
 
