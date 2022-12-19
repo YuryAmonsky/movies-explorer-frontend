@@ -17,7 +17,7 @@ function AboutMe(){
         Сейчас моя цель - стать профессиональным frontend разработчиком.
         </p>
         <a href={'https://github.com/YuryAmonsky'} target="_blank" rel="noreferrer" className="about-me__link">Github</a>
-        <img className="about-me__photo" src={photo} alt=""></img>
+        <img className="about-me__photo" src={photo} alt="Мужчина улыбается"></img>
       </div>
       <div className="portfolio">
         <h3 className='portfolio__title'>Портфолио</h3>
