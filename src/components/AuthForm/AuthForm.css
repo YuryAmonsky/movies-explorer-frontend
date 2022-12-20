@@ -159,4 +159,10 @@
   .form_buttons-block {
     padding: 0 0 calc(30px + 112.5 * (100vw - 320px)/448);    
   }
+
+  .alt-actions {   
+    column-gap: 7px;    
+    font-size: 12px;
+    line-height: 15px;    
+  }
 }

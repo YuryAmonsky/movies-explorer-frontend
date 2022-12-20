@@ -1,11 +1,14 @@
-.app { 
-  display: grid; 
+.app {
+  position: relative;
+  z-index: 1;
+  display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 1fr min-content;
+  grid-template-rows: min-content 1fr min-content;  
   margin: 0 auto;
   max-width: 1280px;
   min-width: 320px;
+  width: 100%;
   min-height: 100vh;
-  font-family: 'Inter', Arial, Helvetica, sans-serif;;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
 }

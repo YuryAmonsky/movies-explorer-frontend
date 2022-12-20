@@ -1,20 +1,20 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Header.css';
 import Logo from '../Logo/Logo';
 
-function Header(props) {  
-  
+function Header(props) {
+
   return (
-    <>      
-      <header className={`header ${props.isLanding ? "header_type_landing":""}`}>
-        <Logo/>
+    <>
+      <header className={`header ${props.isLanding ? "header_type_landing" : ""}`}>
+        <Logo />
         <nav className="nav-bar">
           {props.isLanding === true ?
             <>
               <NavLink to="/signup" className="nav-bar__link">Регистрация</NavLink>
-              <button className="nav-bar__button">Войти</button>
-            </>:
+              <button className="nav-bar__button" onClick={props.onButtonClick}>Войти</button>
+            </> :
             <>
               <NavLink to="/movies" className="nav-bar__link nav-bar__link_theme_light" activeClassName="nav-bar__link_active">Фильмы</NavLink>
               <NavLink to="/saved-movies" className="nav-bar__link nav-bar__link_theme_light" activeClassName="nav-bar__link_active">Сохранённые фильмы</NavLink>
@@ -22,10 +22,10 @@ function Header(props) {
                 <span>Аккаунт</span>
                 <div className="nav-bar__link-icon"></div>
               </NavLink>
-              <button className="burger-button" type="button" onClick={props.onClick}></button>
-            </>          
+              <button className="burger-button" type="button" onClick={props.onBurgerClick}></button>
+            </>
           }
-        </nav>        
+        </nav>
       </header>
     </>
   );

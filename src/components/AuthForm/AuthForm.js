@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import './AuthForm.css';
 import Logo from "../Logo/Logo";
 
-function AuthForm({ isRegForm, children }) {
+function AuthForm({ isRegForm, onSubmit, children }) {
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={onSubmit}>
       <header className="form__header">
         <Logo />
         <h1 className="form__title">
