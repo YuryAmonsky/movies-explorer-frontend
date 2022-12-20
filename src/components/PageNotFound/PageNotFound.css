@@ -1,11 +1,10 @@
 .page-404 {  
-  padding: 246px 0 60px;
+  padding: 40vh 0 0px;
   box-sizing: border-box;
   width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: column;  
   align-items: center;
 }
 
@@ -19,7 +18,7 @@
 }
 
 .page-404__message {
-  margin: 0;
+  margin: 5px 0 0;
   padding: 0;
   font-weight: 400;
   font-size: 16px;
@@ -28,7 +27,7 @@
 }
 
 .page-404__back-button {
-  margin: 0;
+  margin: 184px 0 0;
   padding: 0;
   background: none;
   border: 0;
@@ -43,4 +42,23 @@
 
 .page-404__back-button:hover {
   text-shadow: 0 4px 3px #00000060;
+}
+
+@media screen and (max-width:768px) {  
+
+  .page-404__title {  
+    font-size: calc(80px + 60 * (100vw - 320px)/448);
+    line-height: calc(97px + 72 * (100vw - 320px)/448);  
+  }
+
+  .page-404__message {  
+    font-size: calc(12px + 4 * (100vw - 320px)/448);
+    line-height: calc(16px + 3 * (100vw - 320px)/448);  
+  }
+
+  .page-404__back-button {
+    margin: calc(284px - 100 * (100vw - 320px)/448) 0 0;    
+    font-size: calc(12px + 2 * (100vw - 320px)/448);
+    line-height: calc(15px + 2 * (100vw - 320px)/448);    
+  }
 }

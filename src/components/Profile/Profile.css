@@ -22,7 +22,7 @@
 
 .profile__stroke {
   margin: 16px auto 17px;
-  width: 419px;
+  width: 410px;
   height: 1px;
   border: 0;
   background-color: #e8e8e8;
@@ -75,4 +75,64 @@
 .profile__button_type_exit {
   font-weight: 500;
   color: #ee3465;
+}
+
+@media screen and (max-width:1279px) {
+  .profile {
+    padding: calc(236px - 162 * (100vw - 768px)/511) 0 0;
+  }
+
+  .profile__greeting {
+    margin: 0 auto calc(80px + 43 * (100vw - 768px)/511);
+  }
+
+  .profile__buttons {
+    margin: calc(210px + 10 * (100vw - 768px)/511) auto 0;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .profile {
+    padding: calc(70px + 166 * (100vw - 320px)/448) 0 0;
+  }
+
+  .profile__greeting {
+    margin: 0 auto calc(80px + 16 * (100vw - 320px)/448);
+  }
+
+  .profile__input-container {
+    width: calc(260px + 150 * (100vw - 320px)/448);
+  }
+
+  .profile__stroke {
+    width: calc(300px + 110 * (100vw - 320px)/448);
+  }
+
+  .profile__buttons {
+    margin: calc(379px - 169 * (100vw - 320px)/448) auto 0;
+    width: calc(260px + 150 * (100vw - 320px)/448);
+  }
+}
+
+@media screen and (max-width:320px) {
+  .profile {
+    padding: 70px 0 40px;
+  }
+
+  .profile__greeting {
+    margin: 0 auto 80px;
+  }
+
+  .profile__input-container {
+    width: 260px;
+  }
+
+  .profile__stroke {
+    width: 260px;
+  }
+
+  .profile__buttons {
+    margin: 379px auto 0;
+    width: 300px;
+  }
 }
