@@ -6,5 +6,5 @@
 
 ## Ссылка на файл с макетом
 
-https://disk.yandex.ru/d/j732cb7NR_vPXA  
+https://disk.yandex.ru/d/YIvbcTk_mS4Ayw
   
