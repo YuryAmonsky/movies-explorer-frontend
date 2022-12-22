@@ -51,6 +51,11 @@
   border-radius: 8px;
 }
 
+.profile__input:focus {
+  outline: 1px solid #00000060;
+  border-radius: 3px;
+}
+
 .profile__buttons {
   margin: 220px auto 0;
   width: 410px;
@@ -70,6 +75,11 @@
 
 .profile__button:hover {
   text-shadow: 0 4px 4px #00000060;
+}
+
+.profile__button:focus {
+  outline: 1px solid #00000060;
+  border-radius: 3px;
 }
 
 .profile__button_type_exit {
