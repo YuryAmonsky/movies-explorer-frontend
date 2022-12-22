@@ -23,7 +23,7 @@
   grid-row: 2;
 }
 
-.movie-card__favorite-button {
+.movie-card__button {
   margin: 10px 0 0;
   width: 24px;
   height: 24px;
@@ -32,31 +32,31 @@
   background-color: #f9f9f9;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url(../../images/ui/favorite_inactive.svg);
   cursor: pointer;
+}
+.movie-card__type_favorite {  
+  background-image: url(../../images/ui/favorite_inactive.svg);  
   transition: .3s;
 }
 
-.movie-card__favorite-button:hover {
+.movie-card__type_favorite:hover {
   background-color: #f0f0f0;
 }  
 
-.movie-card__favorite-button_active {
+.movie-card__type_favorite-active {
   background-image: url(../../images/ui/favorite_active.svg);
 }
 
-.movie-card__delete-button {
-  border: none;
-  border-radius: 50%;
-  background-color: #f9f9f9;
-  background-position: center;
-  background-repeat: no-repeat;
+.movie-card__type_delete {  
   background-image: url(../../images/ui/delete_card.svg);
   opacity: 0;
-  cursor: pointer;
 }
 
-.movie-card:hover .movie-card__delete-button {
+.movie-card__type_delete:hover {
+  background-color: #a0a0a0;
+}
+
+.movie-card:hover .movie-card__type_delete {
   opacity: 1;
 }
 

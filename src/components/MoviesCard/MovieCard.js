@@ -10,13 +10,13 @@ function MovieCard({ link, caption, favorite, duration, isSavedMoviesOpen }) {
       {
         isSavedMoviesOpen ?
           <button
-            className="movie-card__delete-button"
+            className="movie-card__button movie-card__type_delete"
             type="button"
           >
           </button>
         :
           <button
-            className={`movie-card__favorite-button${favorite ? " movie-card__favorite-button_active" : ""}`}
+            className={`movie-card__button movie-card__type_favorite${favorite ? " movie-card__type_favorite-active" : ""}`}
             type="button"
           >
           </button>
