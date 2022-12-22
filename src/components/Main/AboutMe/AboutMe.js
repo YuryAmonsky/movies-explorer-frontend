@@ -27,15 +27,15 @@ function AboutMe(){
               <span className="portfolio__link-text">Статичный сайт</span>
               <span className="portfolio__link-arrow">↗</span>
             </a>
-          </li>
-          <hr className="portfolio__stroke"/>
+            <hr className="portfolio__stroke"/>
+          </li>          
           <li>
             <a href={'https://yuryamonsky.github.io/russian-travel/'} target="_blank" rel="noreferrer" className="portfolio__link">              
               <span className="portfolio__link-text">Адаптивный сайт</span>
               <span className="portfolio__link-arrow">↗</span>
             </a>
-          </li>
-          <hr className="portfolio__stroke"/>
+            <hr className="portfolio__stroke"/>
+          </li>          
           <li>
             <a href={'https://amo.edu.nomoredomains.icu'} target="_blank" rel="noreferrer" className="portfolio__link">              
               <span className="portfolio__link-text">Одностраничное приложение</span>

@@ -9,6 +9,7 @@
   row-gap: 38px;
   min-width: 320px;
   width: 100%;
+  list-style: none;
 }
 
 @media screen and (max-width:1279px) {

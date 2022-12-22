@@ -8,7 +8,7 @@ function BurgerMenu({ isOpen, onClose }) {
       <button className="burger-menu__close-button" type="button" onClick={onClose}></button>
       <ul className="burger-menu__links">
         <li>
-          <NavLink to="/" className="burger-menu__link" activeClassName="burger-menu__active-link">Главная</NavLink>
+          <NavLink exact to="/" className="burger-menu__link" activeClassName="burger-menu__active-link">Главная</NavLink>
         </li>
         <li>
           <NavLink to="/movies" className="burger-menu__link" activeClassName="burger-menu__active-link">Фильмы</NavLink>
