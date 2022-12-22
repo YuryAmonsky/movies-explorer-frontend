@@ -5,7 +5,7 @@ import './MovieCard.css';
 function MovieCard({ link, caption, favorite, duration, isSavedMoviesOpen }) {
   return (
     <li className="movie-card">
-      <img className="movie-card__thumbnail" src={link} alt=""></img>
+      <img className="movie-card__thumbnail" src={link} alt={`Кадр из фильма ${caption}`}></img>
       <span className="movie-card__caption">{caption}</span>
       {
         isSavedMoviesOpen ?
