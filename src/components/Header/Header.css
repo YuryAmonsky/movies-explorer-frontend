@@ -31,6 +31,11 @@
   transition: .3s;
 }
 
+.nav-bar__link:focus {
+  outline: 1px solid #00000060;
+  border-radius: 3px;
+}
+
 .nav-bar__link:hover {
   text-shadow: 0 4px 3px #00000060;
   /*transform: scale(1.05);*/

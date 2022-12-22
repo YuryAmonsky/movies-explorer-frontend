@@ -30,7 +30,9 @@
 }
 
 .search-form__input:focus {
-  outline: none;
+  /*outline: none;*/
+  outline: 1px solid #00000060;
+  border-radius: 8px;
 }
 
 .search-form__input::placeholder {
@@ -56,6 +58,9 @@
   transform: rotate(360deg);
 }
 
+.search-form__submit-button:focus {
+  outline: 1px solid #00000060;
+}
 
 .search-form__stroke {
   margin: 13px auto 32px;
@@ -74,6 +79,15 @@
   width: 36px;
   height: 20px;
   cursor: pointer;
+}
+
+.search-form__filter:focus {
+  outline: none; 
+}
+
+.search-form__filter:focus::before {
+  outline: 1px solid #00000060;
+  border-radius: 8px;
 }
 
 .search-form__filter-label {

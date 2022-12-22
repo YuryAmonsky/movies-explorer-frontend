@@ -34,6 +34,11 @@
   background-repeat: no-repeat;
   cursor: pointer;
 }
+
+.movie-card__button:focus {
+  outline: 1px solid #00000060;  
+}
+
 .movie-card__type_favorite {  
   background-image: url(../../images/ui/favorite_inactive.svg);  
   transition: .3s;
@@ -50,10 +55,6 @@
 .movie-card__type_delete {  
   background-image: url(../../images/ui/delete_card.svg);
   opacity: 0;
-}
-
-.movie-card__type_delete:hover {
-  background-color: #a0a0a0;
 }
 
 .movie-card:hover .movie-card__type_delete {

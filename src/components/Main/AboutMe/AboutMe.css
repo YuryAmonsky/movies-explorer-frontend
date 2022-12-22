@@ -92,6 +92,11 @@
   color: #2be080;*/
 }
 
+.about-me__link:focus {
+  outline: 1px solid #00000060;
+  border-radius: 3px;
+}
+
 .portfolio {
   margin-bottom: 125px;
 }
@@ -133,6 +138,11 @@
 .portfolio__link:hover .portfolio__link-arrow {
   transform: rotate(45deg);
   color: #2be080;
+}
+
+.portfolio__link:focus {
+  outline: 1px solid #00000060;
+  border-radius: 8px;
 }
 
 .portfolio__link-text {
@@ -260,7 +270,7 @@
     grid-row: 5;
     grid-column: 1;
   }
-
+  
   .portfolio {
     margin-bottom: calc(70px + 20 * (100vw - 320px)/447);
   }

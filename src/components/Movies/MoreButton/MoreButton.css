@@ -23,6 +23,10 @@
   color: #2be080;
 }
 
+.more-movies-button:focus {  
+    outline: 1px solid #00000060;    
+}
+
 @media screen and (max-width: 768px) {
   .more-movies-button {
     width: calc(240px + 80 * (100vw - 320px)/448);

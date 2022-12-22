@@ -1,3 +1,13 @@
+
+.logo {
+  width: 38px;
+}
+
+.logo:focus {
+  outline: 1px solid #00000060;
+  border-radius: 8px;
+}
+
 .logo-image {
   width: 38px;
   object-fit: cover;

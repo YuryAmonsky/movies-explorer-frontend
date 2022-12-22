@@ -21,7 +21,7 @@ function AuthForm({ isRegForm, onSubmit, children }) {
       <div className="form__inputs-block">
         {children}
       </div>
-      <div className="form_buttons-block">
+      <div className="form__buttons-block">
         <button className="form__submit-button">
           {
             isRegForm ?
