@@ -4,6 +4,7 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Divider from './Divider/Divider';
 
 function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,8 +23,9 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
           isLoading ?
             <Preloader />
             :
-            <MoviesCardList isSavedMoviesOpen={true} />
+            <MoviesCardList isSavedMoviesOpen={true} /> 
         }
+        <Divider/>
       </section>
     </>
   );

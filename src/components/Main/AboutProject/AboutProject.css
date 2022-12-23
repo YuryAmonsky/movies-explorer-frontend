@@ -1,6 +1,7 @@
 .description {
   padding: 110px 70px;
   box-sizing: border-box;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(4, min-content);
@@ -104,16 +105,16 @@
   color: #A0A0A0;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1279px) {
+@media screen  and (max-width: 1279px) {
   .description {
-    padding: calc(90px + 20 * (100vw - 768px)/511) calc(50px + 20 * (100vw - 768px)/511);    
-    column-gap: calc(30px + 10 * (100vw - 768px)/511);
+    padding: calc(90px + 20 * (100vw - 769px)/510) calc(50px + 20 * (100vw - 769px)/510);    
+    column-gap: calc(30px + 10 * (100vw - 769px)/510);
   }
 
   .description__text-container {
-    margin-bottom: calc(93px + 17 * (100vw - 768px)/511);
-    width: calc(319px + 231 * (100vw - 768px)/511);
-    row-gap: calc(22px + 4 * (100vw - 768px)/511);
+    margin-bottom: calc(93px + 17 * (100vw - 769px)/510);
+    width: calc(319px + 231 * (100vw - 769px)/510);
+    row-gap: calc(22px + 4 * (100vw - 769px)/510);
   }
 
   .description__paragraph_font_small {
@@ -122,11 +123,11 @@
   }
 
   .description__period-block_type_back-end {
-    width: calc(140px + 88 * (100vw - 768px)/511);
+    width: calc(140px + 88 * (100vw - 769px)/510);
   }
   
   .description__period-block_type_front-end {
-    width: calc(528px + 384 * (100vw - 768px)/511);
+    width: calc(528px + 384 * (100vw - 769px)/510);
   }
 
   .description__period-caption {
@@ -134,9 +135,9 @@
   }  
 }
 
-@media screen and (min-width:320px) and (max-width:767px) {
+@media screen and (max-width:768px) {
   .description {
-    padding: calc(70px + 20 * (100vw - 320px)/447) calc(18px + 32 * (100vw - 320px)/447);
+    padding: calc(70px + 20 * (100vw - 320px)/448) calc(18px + 32 * (100vw - 320px)/448);
     grid-template-columns: 100%;
     grid-template-rows: repeat(5, min-content);
     column-gap: 0;
@@ -145,22 +146,22 @@
   .description__title {    
     grid-row: 1;
     grid-column: 1;    
-    font-size: calc(18px + 4 * (100vw - 320px)/447);
-    line-height: calc(22px + 5 * (100vw - 320px)/447);
+    font-size: calc(18px + 4 * (100vw - 320px)/448);
+    line-height: calc(22px + 5 * (100vw - 320px)/448);
   }
 
   .description__stroke {
     grid-row: 2;
     grid-column: 1;
-    margin: calc(28px - 5 * (100vw - 320px)/447) auto calc(60px + 10 * (100vw - 320px)/447);    
+    margin: calc(28px - 5 * (100vw - 320px)/448) auto calc(60px + 10 * (100vw - 320px)/448);    
   }
 
   .description__text-container {
     grid-column: 1;
     justify-self: center;
-    margin-bottom: calc(56px + 37 * (100vw - 320px)/447);
-    width: calc(284px + 35 * (100vw - 320px)/447);
-    row-gap: calc(16px + 6 * (100vw - 320px)/447);
+    margin-bottom: calc(56px + 37 * (100vw - 320px)/448);
+    width: calc(284px + 35 * (100vw - 320px)/448);
+    row-gap: calc(16px + 6 * (100vw - 320px)/448);
   }  
 
   .description__paragraph_font_large {
@@ -180,11 +181,11 @@
   }
 
   .description__period-block_type_back-end {
-    width: calc(100px + 40 * (100vw - 320px)/447);
+    width: calc(100px + 40 * (100vw - 320px)/448);
   }
   
   .description__period-block_type_front-end {
-    width: calc(184px + 344 * (100vw - 320px)/447);
+    width: calc(184px + 344 * (100vw - 320px)/448);
   }
 
   .description__period-caption {
