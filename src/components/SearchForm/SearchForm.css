@@ -81,6 +81,18 @@
   cursor: pointer;
 }
 
+.search-form__filter::before {
+  content: '';
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  background-image: url(../../images/ui/smalltumboff.svg);
+}
+
+.search-form__filter:checked::before {
+  background-image: url(../../images/ui/smalltumb.svg);
+}
+
 .search-form__filter:focus {
   outline: none; 
 }
@@ -94,18 +106,6 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
-}
-
-.search-form__filter::before {
-  content: '';
-  display: inline-block;
-  width: 36px;
-  height: 20px;
-  background-image: url(../../images/ui/smalltumboff.svg);
-}
-
-.search-form__filter:checked::before {
-  background-image: url(../../images/ui/smalltumb.svg);
 }
 
 @media screen and (max-width: 1297px) {

@@ -35,7 +35,7 @@ function App() {
     }
   },[location])
   return (
-    <div className="app">
+    <div className="app">            
       <Switch>
         <Route exact path="/">
           <Header
@@ -99,8 +99,8 @@ function App() {
         <Route path="*">
           <PageNotFound />
         </Route>
-      </Switch>
-    </div>
+      </Switch>      
+      </div>    
   );
 }
 
