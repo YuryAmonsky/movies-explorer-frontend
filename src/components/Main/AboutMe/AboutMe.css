@@ -1,0 +1,303 @@
+.about-me {
+  padding: 110px 70px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__title {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  /* identical to box height */
+  letter-spacing: -0.04em;
+}
+
+.about-me__stroke {
+  margin: 23px auto 66px;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background-color: #000;
+}
+
+.about-me__resume-container {
+  margin-bottom: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(4, min-content);
+  width: 100%;
+}
+
+.about-me__name {
+  grid-row: 1;
+  grid-column: 1;
+  margin: 0 0 18px;
+  padding: 0;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  /* identical to box height, or 116% */
+  letter-spacing: -0.04em;
+}
+
+.about-me__props {
+  grid-row: 2;
+  grid-column: 1;
+  margin: 0 0 26px;
+  padding: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.about-me__resume {
+  grid-row: 3;
+  grid-column: 1;
+  margin: 0 0 99px;
+  padding: 0;
+  width: 600px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  mix-blend-mode: normal;
+}
+
+.about-me__photo {
+  grid-row: 1/ span 4;
+  grid-column: 2;
+  justify-self: end;
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.about-me__link {
+  width: 46px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration: none;
+  color: #000;
+  transition: all .3s;
+}
+
+.about-me__link:hover {
+  text-shadow: 0 4px 3px #00000060;
+  /*transform: scale(1.05);
+  color: #2be080;*/
+}
+
+.about-me__link:focus {
+  outline: 1px solid #00000060;
+  border-radius: 3px;
+}
+
+.portfolio {
+  margin-bottom: 125px;
+}
+
+.portfolio__title {
+  margin: 0 0 50px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  /* identical to box height, or 111% */
+  color: #a0a0a0;
+}
+
+.portfolio__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.portfolio__link {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  /* identical to box height, or 167% */
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  color: #000;
+  transition: all .3s;
+}
+
+.portfolio__link:hover .portfolio__link-text {
+  transform: translate(5%, 0);
+  color: #2be080;
+}
+
+.portfolio__link:hover .portfolio__link-arrow {
+  transform: rotate(45deg);
+  color: #2be080;
+}
+
+.portfolio__link:focus {
+  outline: 1px solid #00000060;
+  border-radius: 8px;
+}
+
+.portfolio__link-text {
+  width: 440px;
+  transition: all .3s;
+}
+
+.portfolio__link-arrow {
+
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 60px;
+  /* identical to box height, or 200% */
+  letter-spacing: -0.04em;
+  transition: all .3s;
+}
+
+.portfolio__stroke {
+  margin: 10px 0 19px;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background: #e8e8e8;
+}
+
+@media screen and (max-width:1279px) {
+  .about-me {
+    padding: calc(90px + 10 * (100vw - 769px)/510) calc(50px + 20 * (100vw - 769px)/510) 0;
+  }
+
+  .about-me__name {
+    margin: 0 0 16px;
+    font-size: calc(40px + 10 * (100vw - 769px)/510);
+    line-height: calc(40px + 18 * (100vw - 769px)/510);
+  }
+
+  .about-me__props {
+    margin: 0 0 calc(20px + 6 * (100vw - 769px)/510);
+    font-size: calc(12px + 6 * (100vw - 769px)/510);
+    line-height: calc(18px + 2 * (100vw - 769px)/510);
+  }
+
+  .about-me__resume {
+    margin: 0 0 calc(87px + 12 * (100vw - 769px)/510);
+    width: calc(364px + 236 * (100vw - 769px)/510);
+    font-size: calc(12px + 2 * (100vw - 769px)/510);
+    line-height: calc(18px + 4 * (100vw - 769px)/510);
+  }
+
+  .about-me__photo {
+    width: calc(255px + 15 * (100vw - 769px)/510);
+    height: calc(307px + 20 * (100vw - 769px)/510);
+  }
+
+  .portfolio {
+    margin-bottom: calc(90px + 35 * (100vw - 769px)/510);
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+  }
+
+  .portfolio__link-text {
+    width: calc(386px + 54 * (100vw - 769px)/510);
+  }
+
+  .portfolio__link-arrow {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .about-me {
+    padding: calc(70px + 20 * (100vw - 320px)/448) calc(14px + 36 * (100vw - 320px)/448) 0;
+  }
+
+  .about-me__title {
+    font-size: calc(18px + 4 * (100vw - 320px)/448);
+    line-height: calc(22px + 5 * (100vw - 320px)/448);
+  }
+
+  .about-me__resume-container {
+    margin-bottom: calc(70px + 30 * (100vw - 320px)/448);
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(5, min-content);
+    justify-items: center;
+  }
+
+  .about-me__name {
+    grid-row: 2;
+    grid-column: 1;
+    margin: 0 0 20px;
+    font-size: calc(30px + 10 * (100vw - 320px)/448);
+    line-height: calc(36px + 4 * (100vw - 320px)/448);
+  }
+
+  .about-me__props {
+    grid-row: 3;
+    grid-column: 1;
+    margin: 0 0 20px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__resume {
+    grid-row: 4;
+    grid-column: 1;
+    margin: 0 0 calc(40px + 47 * (100vw - 320px)/448);
+    width: calc(292px + 72 * (100vw - 320px)/448);
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__photo {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: center;
+    margin-bottom: 40px;
+    width: calc(292px - 37 * (100vw - 320px)/448);
+    height: calc(352px - 45 * (100vw - 320px)/448);
+  }
+
+  .about-me__link {
+    grid-row: 5;
+    grid-column: 1;
+  }
+  
+  .portfolio {
+    margin-bottom: calc(70px + 20 * (100vw - 320px)/448);
+  }
+
+  .portfolio__title {
+    margin: 0 0 calc(40px + 10 * (100vw - 320px)/448);
+    font-size: calc(14px + 4 * (100vw - 320px)/448);
+  }
+
+  .portfolio__link {
+    font-size: calc(18px + 10 * (100vw - 320px)/448);
+    line-height: calc(28px + 22 * (100vw - 320px)/448);
+  }
+
+  .portfolio__link-text {
+    width: calc(250px + 136 * (100vw - 320px)/448);
+  }
+
+  .portfolio__link-arrow {
+    font-size: calc(18px + 10 * (100vw - 320px)/448);
+    line-height: calc(28px + 22 * (100vw - 320px)/448);
+  }
+}
+
+@media screen and (max-width:320px) {
+  .about-me__resume-container {
+    justify-items: start;
+  }
+
+}

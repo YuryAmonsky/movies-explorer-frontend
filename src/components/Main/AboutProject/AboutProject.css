@@ -1,0 +1,195 @@
+.description {
+  padding: 110px 70px;
+  box-sizing: border-box;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, min-content);
+  column-gap: 40px;
+  background-color: #fff;
+}
+
+.description__title {
+  margin: 0;
+  padding: 0;
+  grid-row: 1;
+  grid-column: 1/ span 2;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+}
+
+.description__stroke {
+  grid-row: 2;
+  grid-column: 1/ span 2;
+  margin: 23px auto 70px;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background-color: #000;
+}
+
+.description__text-container {
+  margin-bottom: 110px;
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 26px;
+}
+
+.description__paragraph {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+  font-weight: 400; 
+}
+
+.description__paragraph_font_large {
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.description__paragraph_font_small {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.description__time-frame {
+  margin: 0 auto;
+  grid-row: 4;
+  grid-column: 1/ span 2;
+  display: flex;
+}
+
+.description__period {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 14px;
+}
+
+.description__period-block {
+  margin: 0;
+  padding: 0;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.description__period-block_type_back-end {
+  width: 228px;
+  background-color: #2be080;
+}
+
+.description__period-block_type_front-end {
+  width: 912px;
+  background-color: #f2f2f2;
+}
+
+.description__period-caption {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height, or 121% */
+  text-align: center;
+  color: #A0A0A0;
+}
+
+@media screen  and (max-width: 1280px) {
+  .description {
+    padding: calc(90px + 20 * (100vw - 768px)/512) calc(50px + 20 * (100vw - 768px)/512);    
+    column-gap: calc(30px + 10 * (100vw - 768px)/512);
+  }
+
+  .description__text-container {
+    margin-bottom: calc(93px + 17 * (100vw - 768px)/512);
+    width: calc(319px + 231 * (100vw - 768px)/512);
+    row-gap: calc(22px + 4 * (100vw - 768px)/512);
+  }
+
+  .description__paragraph_font_small {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .description__period-block_type_back-end {
+    width: calc(140px + 88 * (100vw - 768px)/512);
+  }
+  
+  .description__period-block_type_front-end {
+    width: calc(528px + 384 * (100vw - 768px)/512);
+  }
+
+  .description__period-caption {
+    font-weight: 400;
+  }  
+}
+
+@media screen and (max-width:768px) {
+  .description {
+    padding: calc(70px + 20 * (100vw - 320px)/448) calc(18px + 32 * (100vw - 320px)/448);
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(5, min-content);
+    column-gap: 0;
+  }
+  
+  .description__title {    
+    grid-row: 1;
+    grid-column: 1;    
+    font-size: calc(18px + 4 * (100vw - 320px)/448);
+    line-height: calc(22px + 5 * (100vw - 320px)/448);
+  }
+
+  .description__stroke {
+    grid-row: 2;
+    grid-column: 1;
+    margin: calc(28px - 5 * (100vw - 320px)/448) auto calc(60px + 10 * (100vw - 320px)/448);    
+  }
+
+  .description__text-container {
+    grid-column: 1;
+    justify-self: center;
+    margin-bottom: calc(56px + 37 * (100vw - 320px)/448);
+    width: calc(284px + 35 * (100vw - 320px)/448);
+    row-gap: calc(16px + 6 * (100vw - 320px)/448);
+  }  
+
+  .description__paragraph_font_large {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .description__paragraph_font_small {
+    font-size: 11px;
+    line-height: 16px;
+  }
+  
+  .description__time-frame {
+    grid-row: 5;
+    grid-column: 1;
+    padding-top: 4px;
+  }
+
+  .description__period-block_type_back-end {
+    width: calc(100px + 40 * (100vw - 320px)/448);
+  }
+  
+  .description__period-block_type_front-end {
+    width: calc(184px + 344 * (100vw - 320px)/448);
+  }
+
+  .description__period-caption {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+  }  
+}
