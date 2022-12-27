@@ -25,17 +25,18 @@ function App() {
     setIsBurgerMenuOpen(false);
   }
 
-  const handleFormSubmit = ()=>{
+  const handleFormSubmit = () => {
     history.push('/movies');
   }
 
-  useEffect(()=>{
-    if(location.pathname==='/'){
+  useEffect(() => {
+    if (location.pathname === '/') {
       setIsBurgerMenuOpen(false);
     }
-  },[location])
+  }, [location]);
+
   return (
-    <div className="app">            
+    <div className="app">
       <Switch>
         <Route exact path="/">
           <Header
@@ -50,12 +51,12 @@ function App() {
         </Route>
         <Route exact path="/signup">
           <main>
-            <Register onSubmit={handleFormSubmit}/>
+            <Register onSubmit={handleFormSubmit} />
           </main>
         </Route>
         <Route exact path="/signin">
           <main>
-            <Login onSubmit={handleFormSubmit}/>
+            <Login onSubmit={handleFormSubmit} />
           </main>
         </Route>
         <Route path="/movies">
@@ -99,8 +100,8 @@ function App() {
         <Route path="*">
           <PageNotFound />
         </Route>
-      </Switch>      
-      </div>    
+      </Switch>
+    </div>
   );
 }
 

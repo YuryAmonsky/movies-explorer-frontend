@@ -17,7 +17,6 @@
   font-weight: 400;
   font-size: 22px;
   line-height: 27px;
-  /* identical to box height */
   letter-spacing: -0.04em;
 }
 
@@ -105,16 +104,16 @@
   color: #A0A0A0;
 }
 
-@media screen  and (max-width: 1279px) {
+@media screen  and (max-width: 1280px) {
   .description {
-    padding: calc(90px + 20 * (100vw - 769px)/510) calc(50px + 20 * (100vw - 769px)/510);    
-    column-gap: calc(30px + 10 * (100vw - 769px)/510);
+    padding: calc(90px + 20 * (100vw - 768px)/512) calc(50px + 20 * (100vw - 768px)/512);    
+    column-gap: calc(30px + 10 * (100vw - 768px)/512);
   }
 
   .description__text-container {
-    margin-bottom: calc(93px + 17 * (100vw - 769px)/510);
-    width: calc(319px + 231 * (100vw - 769px)/510);
-    row-gap: calc(22px + 4 * (100vw - 769px)/510);
+    margin-bottom: calc(93px + 17 * (100vw - 768px)/512);
+    width: calc(319px + 231 * (100vw - 768px)/512);
+    row-gap: calc(22px + 4 * (100vw - 768px)/512);
   }
 
   .description__paragraph_font_small {
@@ -123,11 +122,11 @@
   }
 
   .description__period-block_type_back-end {
-    width: calc(140px + 88 * (100vw - 769px)/510);
+    width: calc(140px + 88 * (100vw - 768px)/512);
   }
   
   .description__period-block_type_front-end {
-    width: calc(528px + 384 * (100vw - 769px)/510);
+    width: calc(528px + 384 * (100vw - 768px)/512);
   }
 
   .description__period-caption {
