@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './AuthForm.css';
 import Logo from "../Logo/Logo";
 
 function AuthForm({ isRegForm, onSubmit, children }) {
-
+  const currentUser = React.useContext(CurrentUserContext);
   return (
     <form className="form" onSubmit={onSubmit}>
       <header className="form__header">
@@ -22,7 +23,13 @@ function AuthForm({ isRegForm, onSubmit, children }) {
         {children}
       </div>
       <div className="form__buttons-block">
-        <button className="form__submit-button">
+        <button 
+          className="form__submit-button"
+          type="submit"
+          formMethod="post"  
+          name="submitButton"
+          disabled = {!currentUser.isLoggedIn}
+        >
           {
             isRegForm ?
               <>Зарегистрироваться</>

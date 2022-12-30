@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthForm from "../AuthForm/AuthForm";
 
 function Login({onSubmit}) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleEmailChange = (evt)=>{
+    setEmail(evt.target.value);
+  }
+
+  const handlePasswordChange = (evt)=>{
+    setPassword(evt.target.value);
+  }
+
+  const handleSubmit = (evt)=>{
+    evt.preventDefault();
+    onSubmit(email, password);
+  }
 
   return (
-    <AuthForm isRegForm={false} onSubmit={onSubmit}>      
+    <AuthForm isRegForm={false} onSubmit={handleSubmit}>      
       <label className="form__input-label">E-mail</label>
       <input
         className="form__input"
@@ -14,6 +28,8 @@ function Login({onSubmit}) {
         placeholder="Email"
         required
         autoComplete="off"
+        onChange={handleEmailChange}
+        value = {email}
       />
       <label className="form__input-label">Пароль</label>
       <input
@@ -25,6 +41,8 @@ function Login({onSubmit}) {
         minLength="8"
         required
         autoComplete="off"
+        onChange={handlePasswordChange}
+        value = {password}
       />
       <span className="form__error-hint">Что-то пошло не так...</span>
     </AuthForm>    
