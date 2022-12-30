@@ -1,5 +1,5 @@
-.header {   
-  padding: 0 70px 0;  
+.header {
+  padding: 0 70px 0;
   box-sizing: border-box;
   min-width: 320px;
   width: 100%;
@@ -27,8 +27,15 @@
   line-height: 16px;
   text-decoration: none;
   text-align: center;
-  color: #fff;
+  color: #000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
   transition: .3s;
+}
+
+.nav-bar__link_type_landing {
+  color: #fff;
 }
 
 .nav-bar__link:focus {
@@ -39,13 +46,6 @@
 .nav-bar__link:hover {
   text-shadow: 0 4px 3px #00000060;
   /*transform: scale(1.05);*/
-}
-
-.nav-bar__link_theme_light {
-  color: #000;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
 }
 
 .nav-bar__link_with-icon {
@@ -121,7 +121,7 @@
     font-size: calc(10px + 2 * (100vw - 320px)/448);
   }
 
-  .nav-bar__link_theme_light {
+  .nav-bar__link_low-res-hidden {
     display: none;
   }
 

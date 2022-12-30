@@ -78,10 +78,14 @@ function App() {
             <Header
               isLanding={true}
               onButtonClick={handleLoginButtonClick}
+              onBurgerClick={handleBurgerClick}
             >
             </Header>
             <main>
-              <Main />
+              <Main 
+                isBurgerMenuOpen={isBurgerMenuOpen}
+                onBurgerMenuClose={handleBurgerMenuClose}
+              />
             </main>
             <Footer />
           </Route>
@@ -98,6 +102,7 @@ function App() {
           <Route path="/movies">
             <Header
               isLanding={false}
+              onButtonClick={handleLoginButtonClick}
               onBurgerClick={handleBurgerClick}
             />
             <main>
@@ -111,6 +116,7 @@ function App() {
           <Route path="/saved-movies">
             <Header
               isLanding={false}
+              onButtonClick={handleLoginButtonClick}
               onBurgerClick={handleBurgerClick}
             />
             <main>
@@ -124,6 +130,7 @@ function App() {
           <Route path="/profile">
             <Header
               isLanding={false}
+              onButtonClick={handleLoginButtonClick}
               onBurgerClick={handleBurgerClick}
             />
             <main>

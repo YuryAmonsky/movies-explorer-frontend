@@ -28,7 +28,7 @@ function AuthForm({ isRegForm, onSubmit, children }) {
           type="submit"
           formMethod="post"  
           name="submitButton"
-          disabled = {!currentUser.isLoggedIn}
+          disabled = {currentUser.isLoggedIn}
         >
           {
             isRegForm ?
