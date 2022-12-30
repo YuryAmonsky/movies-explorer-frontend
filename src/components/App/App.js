@@ -1,6 +1,6 @@
 import './App.css';
 import Main from '../Main/Main';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
@@ -16,8 +16,7 @@ import { mainApi } from '../../utils/MainApi';
 function App() {
   const [currentUser, setCurrentUser] = useState({ name: '', email: '', isLoggedIn: false });
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-  const history = useHistory();
-  const location = useLocation();
+  const history = useHistory();  
   const handleLoginButtonClick = () => {
     history.push('/signin');
   }
@@ -63,13 +62,7 @@ function App() {
       history.push('/movies');
     }
   },[currentUser.isLoggedIn, history]);
-
-  useEffect(() => {
-    if (location.pathname === '/') {
-      setIsBurgerMenuOpen(false);
-    }
-  }, [location]);
-
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
