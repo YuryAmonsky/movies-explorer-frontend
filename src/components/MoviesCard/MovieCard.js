@@ -1,12 +1,13 @@
 import React from 'react';
 import './MovieCard.css';
+import {moviesURL} from '../../utils/MoviesApi';
 
 
-function MovieCard({ link, caption, favorite, duration, isSavedMoviesOpen }) {
+function MovieCard({ card, favorite, isSavedMoviesOpen }) {
   return (
     <li className="movie-card">
-      <img className="movie-card__thumbnail" src={link} alt={`Кадр из фильма ${caption}`}></img>
-      <span className="movie-card__caption">{caption}</span>
+      <img className="movie-card__thumbnail" src={`${moviesURL}${card.image.url}`} alt={`Кадр из фильма ${card.nameRU}`}></img>
+      <span className="movie-card__caption">{card.nameRU}</span>
       {
         isSavedMoviesOpen ?
           <button
@@ -22,7 +23,7 @@ function MovieCard({ link, caption, favorite, duration, isSavedMoviesOpen }) {
           </button>
       }
       <hr className="movie-card__stroke" />
-      <span className="movie-card__duration">{duration}</span>
+      <span className="movie-card__duration">{`${Math.floor(card.duration/60)}ч ${card.duration%60}м`}</span>
     </li >
   );
 }

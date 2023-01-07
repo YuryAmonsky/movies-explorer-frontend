@@ -2,19 +2,56 @@ import React from 'react';
 import './SearchForm.css';
 
 
-function SearchForm(){
-  return(
-    <form className="search-form">
+function SearchForm({
+  request,
+  onlyShortFilms,
+  onSubmit,
+  onRequestChange,
+  onFilterChange
+}) {
+  const handleRequestChange = (evt) => {
+    onRequestChange(evt);
+  };
+  const HandleFilterChange = (evt) => {
+    onFilterChange(evt);
+    console.log(evt.target.checked);
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit(request, onlyShortFilms);
+  }
+  return (
+    <form className="search-form" onSubmit={handleSubmit}>
       <div className="search-form__search-container">
-        <input  className="search-form__input"  type="text" placeholder="Фильм" required/>
-        <button className="search-form__submit-button"></button>
-      </div>      
-      <hr className="search-form__stroke"/> 
+        <input
+          className="search-form__input"
+          name="search"
+          type="text"
+          placeholder="Фильм"
+          onChange={handleRequestChange}
+          value={request}
+        />
+        <button
+          className="search-form__submit-button"
+          name="searchButton"
+          type="submit"
+          formMethod="post"
+        >
+        </button>
+      </div>
+      <hr className="search-form__stroke" />
       <div className="search-form__filter-container">
-        <input className="search-form__filter" type="checkbox" />
+        <input
+          className="search-form__filter"
+          name="filter"
+          type="checkbox"
+          onChange={HandleFilterChange}
+          checked={onlyShortFilms}
+        />
         <label className='search-form__filter-label'>Короткометражки</label>
-      </div>           
-    </form>    
+      </div>
+    </form>
   );
 }
 

@@ -8,19 +8,24 @@
 
 .movie-card__thumbnail {
   width: 100%;
+  /*height: 151px;*/
+  aspect-ratio: 270/151;
   object-fit: cover;
   grid-column: 1/span 2;
+  background-color: #000;  
 }
 
 .movie-card__caption {
   margin: 14px 0 0;
   width: 226px;
-  min-height: 32px;
+  height: 32px;
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
   grid-column: 1;
   grid-row: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .movie-card__button {
@@ -36,23 +41,23 @@
 }
 
 .movie-card__button:focus {
-  outline: 1px solid #00000060;  
+  outline: 1px solid #00000060;
 }
 
-.movie-card__type_favorite {  
-  background-image: url(../../images/ui/favorite_inactive.svg);  
+.movie-card__type_favorite {
+  background-image: url(../../images/ui/favorite_inactive.svg);
   transition: .3s;
 }
 
 .movie-card__type_favorite:hover {
   background-color: #f0f0f0;
-}  
+}
 
 .movie-card__type_favorite-active {
   background-image: url(../../images/ui/favorite_active.svg);
 }
 
-.movie-card__type_delete {  
+.movie-card__type_delete {
   background-image: url(../../images/ui/delete_card.svg);
   opacity: 0;
 }
@@ -85,10 +90,16 @@
 }
 
 @media screen and (max-width:1279px) {
-  .movie-card {    
+  .movie-card {
     width: auto;
+    /*grid-template-rows: calc(190px - 39*(100vw - 768px)/511) repeat(3, min-content);*/
   }
-
+  /*
+  .movie-card__thumbnail {
+    /*height: calc(190px - 39*(100vw - 768px)/511);
+    aspect-ratio: 270/151;
+  }
+*/
   .movie-card__caption {
     width: auto;
   }
@@ -97,16 +108,27 @@
 @media screen and (max-width:768px) {
   .movie-card {
     width: auto;
+   /* grid-template-rows: calc(168px - 22*(100vw - 320px)/448) repeat(3, min-content);*/
+  }
+
+  .movie-card__thumbnail {
+    /*height: calc(168px - 22*(100vw - 320px)/448);*/
+    aspect-ratio: 339/190;
   }
 
   .movie-card__stroke {
-    margin: 29px 0 6px;  
-  }  
+    margin: 29px 0 6px;
+  }
 }
 
-@media screen and (max-width:320px) {  
+@media screen and (max-width:320px) {
   .movie-card {
     width: 300px;
+  }
+
+  .movie-card__thumbnail {
+    /*height: calc(168px - 22*(100vw - 320px)/448);*/
+    aspect-ratio: 300/168;
   }
 
   .movie-card__caption {

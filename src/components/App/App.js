@@ -14,9 +14,12 @@ import { useEffect, useState } from 'react';
 import { mainApi } from '../../utils/MainApi';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({ name: '', email: '', isLoggedIn: false });
+  /** Состояния */
+  const [currentUser, setCurrentUser] = useState({ name: '', email: '', isLoggedIn: false });    
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-  const history = useHistory();  
+  const history = useHistory(); 
+  
+  /** Обработчики */
   const handleLoginButtonClick = () => {
     history.push('/signin');
   }
@@ -56,7 +59,7 @@ function App() {
         console.log(`${err.statusCode}. ${err.message}`);
       });
   }
-
+  /** Эффекты */
   useEffect(()=>{
     if(currentUser.isLoggedIn){
       history.push('/movies');

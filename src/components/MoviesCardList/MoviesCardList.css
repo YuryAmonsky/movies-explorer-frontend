@@ -33,7 +33,6 @@
     column-gap: calc(10px + 20 * (100vw - 320px)/448);
     row-gap: 30px;
   }
-
 }
 
 @media screen and (max-width:540px) {
