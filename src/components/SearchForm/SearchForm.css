@@ -21,7 +21,6 @@
   font-weight: 500;
   font-size: 28px;
   line-height: 34px;
-  /* identical to box height */
 }
 
 .search-form__input:hover {
@@ -30,7 +29,6 @@
 }
 
 .search-form__input:focus {
-  /*outline: none;*/
   outline: 1px solid #00000060;
   border-radius: 8px;
 }
@@ -89,12 +87,18 @@
   background-image: url(../../images/ui/smalltumboff.svg);
 }
 
+
 .search-form__filter:checked::before {
+  content: '';
+  display: inline-block;
+  width: 36px;
+  height: 20px;
   background-image: url(../../images/ui/smalltumb.svg);
 }
 
 .search-form__filter:focus {
-  outline: none; 
+  outline: none;
+  background: none; 
 }
 
 .search-form__filter:focus::before {

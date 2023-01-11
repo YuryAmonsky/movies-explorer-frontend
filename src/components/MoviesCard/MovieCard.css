@@ -1,9 +1,15 @@
 .movie-card {
+  
+}
+
+.movie-card__link { 
   display: grid;
   grid-template-columns: 1fr 24px;
   grid-template-rows: repeat(4, min-content);
   column-gap: 20px;
-  width: 270px;
+  width: 270px; 
+  color: #000;
+  text-decoration: none;
 }
 
 .movie-card__thumbnail {
@@ -12,7 +18,7 @@
   aspect-ratio: 270/151;
   object-fit: cover;
   grid-column: 1/span 2;
-  background-color: #000;  
+  background-color: #000;
 }
 
 .movie-card__caption {
@@ -21,9 +27,7 @@
   height: 32px;
   font-weight: 500;
   font-size: 13px;
-  line-height: 16px;
-  grid-column: 1;
-  grid-row: 2;
+  line-height: 16px;  
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -44,25 +48,25 @@
   outline: 1px solid #00000060;
 }
 
-.movie-card__type_favorite {
+.movie-card__button_type_favorite {
   background-image: url(../../images/ui/favorite_inactive.svg);
   transition: .3s;
 }
 
-.movie-card__type_favorite:hover {
+.movie-card__button_type_favorite:hover {
   background-color: #f0f0f0;
 }
 
-.movie-card__type_favorite-active {
+.movie-card__button_type_favorite-active {
   background-image: url(../../images/ui/favorite_active.svg);
 }
 
-.movie-card__type_delete {
+.movie-card__button_type_delete {
   background-image: url(../../images/ui/delete_card.svg);
   opacity: 0;
 }
 
-.movie-card:hover .movie-card__type_delete {
+.movie-card:hover .movie-card__button_type_delete {
   opacity: 1;
 }
 
@@ -94,6 +98,7 @@
     width: auto;
     /*grid-template-rows: calc(190px - 39*(100vw - 768px)/511) repeat(3, min-content);*/
   }
+
   /*
   .movie-card__thumbnail {
     /*height: calc(190px - 39*(100vw - 768px)/511);
@@ -108,7 +113,7 @@
 @media screen and (max-width:768px) {
   .movie-card {
     width: auto;
-   /* grid-template-rows: calc(168px - 22*(100vw - 320px)/448) repeat(3, min-content);*/
+    /* grid-template-rows: calc(168px - 22*(100vw - 320px)/448) repeat(3, min-content);*/
   }
 
   .movie-card__thumbnail {

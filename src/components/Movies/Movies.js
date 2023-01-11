@@ -6,6 +6,7 @@ import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { filterMovies, getMovies } from '../../utils/MoviesApi';
 import useCardListConf from '../../hooks/useCardListConf';
+import { mainApi } from '../../utils/MainApi';
 
 function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
   /** request status values: isEmpty, 'loading', 'success', 'notFound', 'failed' */
@@ -14,7 +15,8 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
   const [request, setRequest] = useState('');
   const [onlyShortFilms, setOnlyShortFilms] = useState(false);
   const [cards, setCards] = useState([]);
-  const [cardsToShow, setCardsToShow] = useState(0);  
+  const [savedCards, setSavedCards] = useState([]);
+  const [cardsToShow, setCardsToShow] = useState(0);
   let filterChanged = useRef(false);
 
 
@@ -37,8 +39,8 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     setRequestStatus('loading');
     getMovies()
       .then((res) => {
-        localStorage.setItem('movies', JSON.stringify(res));
-        const movies = filterMovies(request, [...res], onlyShortFilms);
+        localStorage.setItem('movies', JSON.stringify(res.data));
+        const movies = filterMovies(request, [...res.data], onlyShortFilms);
         if (movies.length > 0) {
           localStorage.setItem('movies-request', request);
           localStorage.setItem('movies-filter', onlyShortFilms);
@@ -53,8 +55,51 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       });
   };
 
-  const handleAddCards = (evt) => {
+  const handleAddCards = () => {
     setCardsToShow(cardsToShow + cardListConf.cardsInRow)
+  }
+
+  const saveCard = (card) => {
+    mainApi.saveCard(card)
+      .then((res) => {
+        const savedMovies = [...savedCards, res.data];
+        localStorage.setItem('saved-movies', JSON.stringify(savedMovies));
+        setSavedCards(savedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const deleteCard = (cardId) => {
+    mainApi.deleteCard(cardId)
+      .then(() => {
+        const savedMovies = savedCards.filter((c) => c._id !== cardId);
+        localStorage.setItem('saved-movies', JSON.stringify(savedMovies));
+        setSavedCards(savedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const handleFavoriteButtonClick = (card) => {
+
+    //TODO определить _id по id
+    let savedCard;
+    const isSaved = savedCards.some((c) => {
+      if(c?.movieId === card.id){
+        savedCard = c;
+        return true;
+      } 
+      return false;
+    });
+    if (isSaved) {
+      deleteCard(savedCard._id);
+    } else {
+      saveCard(card);
+    }
+
   }
 
   useEffect(() => {
@@ -72,6 +117,21 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
         movies = JSON.parse(localStorage.getItem('movies'));
         setCards([...filterMovies(req, movies, filter)]);
         setRequestStatus('success');
+      }
+      if (localStorage.getItem('saved-movies')) {
+        const savedMovies = JSON.parse(localStorage.getItem('saved-movies'));
+        setSavedCards(savedMovies);
+      } else {
+        mainApi.getCards()
+          .then((res) => {
+            if (res.data.length > 0) {
+              localStorage.setItem('saved-movies', JSON.stringify(res.data));
+            }
+            setSavedCards(res.data);
+          })
+          .catch((err) => {
+
+          });
       }
     }
 
@@ -92,7 +152,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
   }, [requestStatus, request, onlyShortFilms]);
 
   useEffect(() => {
-    if(cardsToShow > 0){
+    if (cardsToShow > 0) {
       return;
     }
     if (cards.length <= cardListConf.maxStartCards) {
@@ -115,13 +175,15 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       />
       <section className="movies">
         {requestStatus === 'loading' && <Preloader />}
-        {requestStatus === 'success' 
-          && <MoviesCardList 
-              cards={cards} 
-              cardsToShow={cardsToShow} 
-              isSavedMoviesOpen={false}
-              onMoreCardsClick = {handleAddCards}
-            />}
+        {requestStatus === 'success'
+          && <MoviesCardList
+            cards={cards}
+            savedCards={savedCards}
+            cardsToShow={cardsToShow}
+            isSavedMoviesOpen={false}
+            onCardButtonClick={handleFavoriteButtonClick}
+            onMoreCardsClick={handleAddCards}
+          />}
         {requestStatus === 'isEmpty' &&
           <p className='tooltip'>Нужно ввести ключевое слово</p>}
         {requestStatus === 'notFound' &&

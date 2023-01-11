@@ -15,10 +15,10 @@ import { mainApi } from '../../utils/MainApi';
 
 function App() {
   /** Состояния */
-  const [currentUser, setCurrentUser] = useState({ name: '', email: '', isLoggedIn: false });    
+  const [currentUser, setCurrentUser] = useState({ _id: '638b3b927b62fc260ae37817', name: '', email: '', isLoggedIn: false });
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-  const history = useHistory(); 
-  
+  const history = useHistory();
+
   /** Обработчики */
   const handleLoginButtonClick = () => {
     history.push('/signin');
@@ -55,17 +55,19 @@ function App() {
         setCurrentUser({ ...loginRes.user, isLoggedIn: true });
         console.log('user authorized');
       })
-      .catch(err =>{
+      .catch(err => {
         console.log(`${err.statusCode}. ${err.message}`);
       });
   }
+
   /** Эффекты */
-  useEffect(()=>{
-    if(currentUser.isLoggedIn){
+  useEffect(() => {
+    if (currentUser.isLoggedIn) {
       history.push('/movies');
     }
-  },[currentUser.isLoggedIn, history]);
-  
+  }, [currentUser.isLoggedIn, history]);
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -78,7 +80,7 @@ function App() {
             >
             </Header>
             <main>
-              <Main 
+              <Main
                 isBurgerMenuOpen={isBurgerMenuOpen}
                 onBurgerMenuClose={handleBurgerMenuClose}
               />

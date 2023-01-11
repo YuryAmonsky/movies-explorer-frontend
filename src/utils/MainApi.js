@@ -1,3 +1,5 @@
+import { moviesURL } from "./MoviesApi";
+
 class MainApi {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -12,11 +14,11 @@ class MainApi {
   }) {
     return fetch(`${this._baseUrl}${url}`, {
       method,
-      headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
-        ...!!token && { 'authorization': `Bearer ${token}` }
-      },
+      headers: this._headers, //{
+        //'Accept': 'application/json',
+        //'Content-type': 'application/json',
+        //...!!token && { 'authorization': `Bearer ${token}` }
+      //},
       ...!!data && { body: JSON.stringify(data) }
     })
       .then((res) => {
@@ -48,12 +50,45 @@ class MainApi {
       data: { name: name, email: email, password: password }
     });
   }
+
+  getCards(){
+    return this._request({
+      url:'/movies',
+      method: 'GET',
+    })
+  }
+
+  saveCard(card) {
+    return this._request({
+      url: '/movies',
+      data: {
+        movieId: card.id,
+        nameRU: card.nameRU,
+        nameEN: card.nameEN,
+        director: card.director,
+        country: card.country,
+        year: card.year,
+        duration: card.duration,
+        description: card.description,
+        trailerLink: card.trailerLink,
+        image: `${moviesURL}${card.image.url}`,
+        thumbnail: `${moviesURL}${card.image.formats.thumbnail.url}`,
+      },
+    })
+  }
+
+  deleteCard(cardId) {
+    return this._request({
+      url: `/movies/${cardId}`,
+      method: 'DELETE',
+    })
+  }
 }
 
 export const mainApi = new MainApi({
   baseUrl: 'http://localhost:3002',//'https://api.amo.movies-explorer.nomoredomains.club',
   headers: {
-    'authorization': '',
+    authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhiM2I5MjdiNjJmYzI2MGFlMzc4MTciLCJpYXQiOjE2NzM0NjczMzMsImV4cCI6MTY3NDA3MjEzM30.NKz7xFLK82g3LjKl09RWnSR3zyRWyU3UwuIolQMNjDw',
     'Content-Type': 'application/json'
   }
 })
