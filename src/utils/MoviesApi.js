@@ -17,12 +17,3 @@ export const getMovies = () => {
       });
   });
 }
-
-export const filterMovies = (req, movies, onlyShortFilms) => {
-  return movies.filter((movie) => {
-    if(onlyShortFilms){
-      return movie.nameRU.includes(req) && movie.duration <= 40;
-    }
-    return movie.nameRU.includes(req);
-  });
-}

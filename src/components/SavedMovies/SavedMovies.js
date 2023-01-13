@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './SavedMovies.css';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Divider from './Divider/Divider';
 import { mainApi } from '../../utils/MainApi';
-import { filterMovies } from '../../utils/MoviesApi';
+import { filterMovies } from '../../utils/FilterMovies';
 
 function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
+  const currentUser = useContext(CurrentUserContext);
   /** Значения переменной requestStatus: isEmpty, 'loading', 'success', 'notFound', 'failed' */
   const [requestStatus, setRequestStatus] = useState('');
   const [request, setRequest] = useState('');
@@ -34,7 +36,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     }
     setRequestStatus('loading');
     const allSavedCards = JSON.parse(localStorage.getItem('saved-movies'));
-    const filteredSavedCards = filterMovies(request, allSavedCards, onlyShortFilms);
+    const filteredSavedCards = filterMovies(request, allSavedCards, onlyShortFilms, currentUser._id);
     setCards(filteredSavedCards);
     localStorage.setItem('saved-movies-request', request);
     localStorage.setItem('saved-movies-filter', JSON.stringify(onlyShortFilms));
@@ -56,13 +58,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
   useEffect(() => {
     mainApi.getCards()
       .then((res) => {
-        if (res.data.length > 0) {
-          localStorage.setItem('saved-movies', JSON.stringify(res.data));
-          setCards(res.data);
-          setRequestStatus('success');
-        } else {
-          setRequestStatus('notFound');
-        }        
+        localStorage.setItem('saved-movies', JSON.stringify(res.data));       
       })
       .catch((err) => {
         setRequestStatus('failed');
@@ -99,7 +95,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
 
     if ((requestStatus === 'success' || requestStatus === 'notFound') && filterChanged.current) {
       filterChanged.current = false;
-      const movies = filterMovies(request, [...JSON.parse(localStorage.getItem('saved-movies'))], onlyShortFilms);
+      const movies = filterMovies(request, [...JSON.parse(localStorage.getItem('saved-movies'))], onlyShortFilms, currentUser._id);
       if (movies.length > 0) {
         localStorage.setItem('saved-movies-request', request);
         localStorage.setItem('saved-movies-filter', onlyShortFilms);
@@ -111,7 +107,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
         setRequestStatus('notFound');
       }
     }
-  }, [requestStatus, request, onlyShortFilms]);
+  }, [requestStatus, request, onlyShortFilms, currentUser]);
 
   useEffect(()=>{
     if(cards.length>0){

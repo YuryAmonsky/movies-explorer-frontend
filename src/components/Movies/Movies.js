@@ -4,7 +4,8 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { filterMovies, getMovies } from '../../utils/MoviesApi';
+import { getMovies } from '../../utils/MoviesApi';
+import {filterMovies} from '../../utils/FilterMovies';
 import useCardListConf from '../../hooks/useCardListConf';
 import { mainApi } from '../../utils/MainApi';
 
@@ -43,7 +44,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     getMovies()
       .then((res) => {
         localStorage.setItem('movies', JSON.stringify(res));
-        const movies = filterMovies(request, [...res], onlyShortFilms);
+        const movies = filterMovies(request, [...res], onlyShortFilms, null);
         if (movies.length > 0) {
           localStorage.setItem('movies-request', request);
           localStorage.setItem('movies-filter', onlyShortFilms);
@@ -109,7 +110,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       }
       if (localStorage.getItem('movies')) {
         movies = JSON.parse(localStorage.getItem('movies'));
-        setCards([...filterMovies(req, movies, filter)]);
+        setCards([...filterMovies(req, movies, filter, null)]);
         setRequestStatus('success');
       }
       if (localStorage.getItem('saved-movies')) {
@@ -131,7 +132,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
 
     if ((requestStatus === 'success' || requestStatus === 'notFound') && filterChanged.current) {
       filterChanged.current = false;
-      const movies = filterMovies(request, [...JSON.parse(localStorage.getItem('movies'))], onlyShortFilms);
+      const movies = filterMovies(request, [...JSON.parse(localStorage.getItem('movies'))], onlyShortFilms, null);
       if (movies.length > 0) {
         localStorage.setItem('movies-request', request);
         localStorage.setItem('movies-filter', onlyShortFilms);
