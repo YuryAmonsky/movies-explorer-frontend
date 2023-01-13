@@ -8,14 +8,17 @@ import { filterMovies, getMovies } from '../../utils/MoviesApi';
 import useCardListConf from '../../hooks/useCardListConf';
 import { mainApi } from '../../utils/MainApi';
 
-function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
-  /** request status values: isEmpty, 'loading', 'success', 'notFound', 'failed' */
+function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {  
   const { cardListConf } = useCardListConf();
+  /** Значения переменной requestStatus: isEmpty, 'loading', 'success', 'notFound', 'failed' */
   const [requestStatus, setRequestStatus] = useState('');
   const [request, setRequest] = useState('');
   const [onlyShortFilms, setOnlyShortFilms] = useState(false);
-  const [cards, setCards] = useState([]);
+  /** cards - отобранные по запросу карточки */
+  const [cards, setCards] = useState([]);  
   const [savedCards, setSavedCards] = useState([]);
+  /** cardsToShow - количество карточек, которое должно быть отображено, 
+  также используется для определения необходимости показа кнопки "Еще"*/
   const [cardsToShow, setCardsToShow] = useState(0);
   let filterChanged = useRef(false);
 
@@ -24,7 +27,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     setRequest(evt.target.value);
   };
 
-  const HandleFilterChange = (evt) => {
+  const handleFilterChange = (evt) => {
     filterChanged.current = true;
     setOnlyShortFilms(evt.target.checked);
   };
@@ -39,8 +42,8 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     setRequestStatus('loading');
     getMovies()
       .then((res) => {
-        localStorage.setItem('movies', JSON.stringify(res.data));
-        const movies = filterMovies(request, [...res.data], onlyShortFilms);
+        localStorage.setItem('movies', JSON.stringify(res));
+        const movies = filterMovies(request, [...res], onlyShortFilms);
         if (movies.length > 0) {
           localStorage.setItem('movies-request', request);
           localStorage.setItem('movies-filter', onlyShortFilms);
@@ -71,10 +74,10 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       });
   }
 
-  const deleteCard = (cardId) => {
-    mainApi.deleteCard(cardId)
+  const deleteCard = (card) => {
+    mainApi.deleteCard(card._id)
       .then(() => {
-        const savedMovies = savedCards.filter((c) => c._id !== cardId);
+        const savedMovies = savedCards.filter((c) => c._id !== card._id);
         localStorage.setItem('saved-movies', JSON.stringify(savedMovies));
         setSavedCards(savedMovies);
       })
@@ -83,19 +86,10 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       });
   }
 
-  const handleFavoriteButtonClick = (card) => {
-
-    //TODO определить _id по id
-    let savedCard;
-    const isSaved = savedCards.some((c) => {
-      if(c?.movieId === card.id){
-        savedCard = c;
-        return true;
-      } 
-      return false;
-    });
-    if (isSaved) {
-      deleteCard(savedCard._id);
+  const handleFavoriteButtonClick = (card) => {    
+    const savedCard = savedCards.find((c) => c.movieId === card.id);
+    if (savedCard) {
+      deleteCard(savedCard);
     } else {
       saveCard(card);
     }
@@ -171,15 +165,15 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
         onlyShortFilms={onlyShortFilms}
         onSubmit={handleSearch}
         onRequestChange={handleRequestChange}
-        onFilterChange={HandleFilterChange}
+        onFilterChange={handleFilterChange}
       />
       <section className="movies">
         {requestStatus === 'loading' && <Preloader />}
         {requestStatus === 'success'
           && <MoviesCardList
             cards={cards}
-            savedCards={savedCards}
-            cardsToShow={cardsToShow}
+            cardsToShow = {cardsToShow}
+            savedCards={savedCards}            
             isSavedMoviesOpen={false}
             onCardButtonClick={handleFavoriteButtonClick}
             onMoreCardsClick={handleAddCards}

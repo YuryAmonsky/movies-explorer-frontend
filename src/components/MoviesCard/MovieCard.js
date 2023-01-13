@@ -1,37 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MovieCard.css';
 import { moviesURL } from '../../utils/MoviesApi';
-//import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-
-function MovieCard({ card, savedCards, isSavedMoviesOpen, onButtonClick }) {
-  //const currentUser = useContext(CurrentUserContext);
-  const isFavorite = savedCards.some(c => c?.movieId === card.id);
-
+function MovieCard({ card, isFavorite, isSavedMoviesOpen, onButtonClick }) {
+  
   const handleButtonClick = (evt) => {
     evt.preventDefault();
     onButtonClick(card)
   }
+
+  useEffect(()=>{
+    if(isSavedMoviesOpen){
+      
+    }
+  },[isSavedMoviesOpen])
   return (
     <li className="movie-card">
       <a className="movie-card__link" href={card.trailerLink} target="_blank" rel="noreferrer">
-        <img className="movie-card__thumbnail" src={`${moviesURL}${card.image.url}`} alt={`Кадр из фильма ${card.nameRU}`}></img>
+        <img 
+          className="movie-card__thumbnail"
+          src={!isSavedMoviesOpen? `${moviesURL}${card.image.url}`: card.image}
+          alt={`Кадр из фильма ${card.nameRU}`}
+        >          
+        </img>
         <span className="movie-card__caption">{card.nameRU}</span>
-        {
-          isSavedMoviesOpen ?
-            <button
-              className="movie-card__button movie-card__button_type_delete"
-              type="button"
-            >
-            </button>
-            :
-            <button
-              className={`movie-card__button movie-card__button_type_favorite${isFavorite ? " movie-card__button_type_favorite-active" : ""}`}
-              type="button"
-              onClick={handleButtonClick}
-            >
-            </button>
-        }
+        <button
+          className={`movie-card__button ${isSavedMoviesOpen ? "movie-card__button_type_delete" :
+            isFavorite ? " movie-card__button_type_favorite-active" : "movie-card__button_type_favorite"}`
+          }  
+          type="button"
+          onClick={handleButtonClick}
+        >
+        </button>           
         <hr className="movie-card__stroke" />
         <span className="movie-card__duration">{`${Math.floor(card.duration / 60)}ч ${card.duration % 60}м`}</span>
       </a>

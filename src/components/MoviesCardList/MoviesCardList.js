@@ -8,15 +8,18 @@ function MoviesCardList({ cards, savedCards, cardsToShow, isSavedMoviesOpen, onC
     <>
       <ul className='card-list'>
         {
-          [...cards.slice(0, cardsToShow)].map((card) =>
-            <MovieCard
-              key={card.id}
-              card={card}
-              savedCards={savedCards}
-              isSavedMoviesOpen={isSavedMoviesOpen}
-              onButtonClick={onCardButtonClick}
-            />
-          )
+          cards.slice(0, cardsToShow).map((card) => {
+            const isFavorite = savedCards.some(c => c?.movieId === card.id);
+            return (
+              <MovieCard
+                key={!isSavedMoviesOpen? card.id: card.movieId}
+                card={card}
+                isFavorite={isFavorite}
+                isSavedMoviesOpen={isSavedMoviesOpen}
+                onButtonClick={onCardButtonClick}
+              />
+            )
+          })
         }
       </ul>
       {
