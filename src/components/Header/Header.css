@@ -70,6 +70,10 @@
   background-repeat: no-repeat;
 }
 
+.nav-bar__link-icon_type_landing {
+  background-color: #5c5c5c;
+}
+
 .nav-bar__link_active {
   font-weight: 500;
   font-size: 14px;

@@ -15,7 +15,7 @@ import { mainApi } from '../../utils/MainApi';
 
 function App() {
   /** Состояния */
-  const [currentUser, setCurrentUser] = useState({ _id: '638b3b927b62fc260ae37817', name: '', email: '', isLoggedIn: false });
+  const [currentUser, setCurrentUser] = useState({ _id: '', name: '', email: '', isLoggedIn: false });//638b3b927b62fc260ae37817
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
   const history = useHistory();
 
@@ -28,19 +28,6 @@ function App() {
   }
   const handleBurgerMenuClose = () => {
     setIsBurgerMenuOpen(false);
-  }
-
-  const handleLogin = (email, password) => {
-    mainApi.login(email, password)
-      .then((res) => {
-        localStorage.setItem('jwt', res.token);
-        mainApi.setAuthorization(res.token);
-        setCurrentUser({ ...res.user, isLoggedIn: true });
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(`${err.statusCode}. ${err.message}`);
-      });
   }
 
   const handleRegister = (name, email, password) => {
@@ -60,10 +47,62 @@ function App() {
       });
   }
 
+  const handleLogin = (email, password) => {
+    mainApi.login(email, password)
+      .then((res) => {
+        localStorage.setItem('jwt', res.token);
+        mainApi.setAuthorization(res.token);
+        setCurrentUser({ ...res.user, isLoggedIn: true });
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(`${err.statusCode}. ${err.message}`);
+      });
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('movies');
+    localStorage.removeItem('saved-movies');
+    localStorage.removeItem('movies-request');
+    localStorage.removeItem('movies-filter');
+    localStorage.removeItem('saved-movies-request');
+    localStorage.removeItem('saved-movies-filter');
+    setCurrentUser({ name: '', email: ', isLoggedIn:false' });    
+  }
+
+  const handleEditProfile = (name, email) => {
+    mainApi.updateUserData(name, email)
+      .then((res) => {
+        setCurrentUser({ ...res.data, isLoggedIn: currentUser.isLoggedIn });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   /** Эффекты */
+  useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      mainApi.setAuthorization(localStorage.getItem('jwt'));
+      mainApi.getUserData()
+        .then((res) => {
+          console.log('user loggedin');
+          setCurrentUser({ ...res.data, isLoggedIn: true });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+
+    }
+  }, []);
+
   useEffect(() => {
     if (currentUser.isLoggedIn) {
       history.push('/movies');
+    }else{
+      history.push('/');
     }
   }, [currentUser.isLoggedIn, history]);
 
@@ -135,6 +174,8 @@ function App() {
               <Profile
                 isBurgerMenuOpen={isBurgerMenuOpen}
                 onBurgerMenuClose={handleBurgerMenuClose}
+                onEditProfile={handleEditProfile}
+                onLogout={handleLogout}
               />
             </main>
           </Route>

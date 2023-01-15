@@ -87,7 +87,6 @@
   background-image: url(../../images/ui/smalltumboff.svg);
 }
 
-
 .search-form__filter:checked::before {
   content: '';
   display: inline-block;

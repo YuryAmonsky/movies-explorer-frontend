@@ -51,6 +51,21 @@ class MainApi {
     });
   }
 
+  getUserData(){
+    return this._request({
+      url: '/users/me',
+      method: 'GET',
+    });
+  }
+  
+  updateUserData(name, email){
+    return this._request({
+      url: '/users/me',
+      method: 'PATCH',
+      data: {name:name, email:email},
+    });
+  }
+
   getCards(){
     return this._request({
       url:'/movies',
@@ -88,7 +103,8 @@ class MainApi {
 export const mainApi = new MainApi({
   baseUrl: 'http://localhost:3002',//'https://api.amo.movies-explorer.nomoredomains.club',
   headers: {
-    authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhiM2I5MjdiNjJmYzI2MGFlMzc4MTciLCJpYXQiOjE2NzM0NjczMzMsImV4cCI6MTY3NDA3MjEzM30.NKz7xFLK82g3LjKl09RWnSR3zyRWyU3UwuIolQMNjDw',
+    authorization: '',
+    //'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhiM2I5MjdiNjJmYzI2MGFlMzc4MTciLCJpYXQiOjE2NzM0NjczMzMsImV4cCI6MTY3NDA3MjEzM30.NKz7xFLK82g3LjKl09RWnSR3zyRWyU3UwuIolQMNjDw',
     'Content-Type': 'application/json'
   }
 })

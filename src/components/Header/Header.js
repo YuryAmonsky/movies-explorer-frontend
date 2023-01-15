@@ -34,10 +34,10 @@ function Header({isLanding, onButtonClick, onBurgerClick}) {
               <NavLink
                 to="/profile"
                 className={`nav-bar__link nav-bar__link_low-res-hidden nav-bar__link_with-icon ${isLanding? "nav-bar__link_type_landing":""}`} 
-                activeClassName="nav-bar__link_active"
+                activeClassName="nav-bar__link_active "
               >
                 <span>Аккаунт</span>
-                <div className="nav-bar__link-icon"></div>
+                <div className={`nav-bar__link-icon ${isLanding? "nav-bar__link-icon_type_landing":""}`}></div>
               </NavLink>
               <button className="burger-button" type="button" onClick={onBurgerClick}></button>
             </>
