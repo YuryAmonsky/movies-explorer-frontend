@@ -1,19 +1,19 @@
-export const filterMovies = (req, movies, onlyShortFilms, userId) => {
+export const filterMovies = (movies, req, onlyShortFilms, userId) => {
   return movies.filter((movie) => {
-    const regex = new RegExp(req, 'i');
-    const res = movie.nameRU.match(regex);
-    if(userId){      
-      if(onlyShortFilms){
-
-        return  !!res && movie.owner===userId && movie.duration <= 40;
+    let filter = true;
+    if (req !== null) {
+      const regex = new RegExp(req, 'i');
+      const textFilterResult = movie.nameRU.match(regex);
+      filter &&= !!textFilterResult;
+    }
+    if (onlyShortFilms !== null) {
+      if (onlyShortFilms) {
+        filter &&= movie.duration <= 40;
       }
-      return !!res && movie.owner===userId;
-    }else{
-      if(onlyShortFilms){
-
-        return  !!res && movie.duration <= 40;
-      }
-      return !!res;
-    }    
+    }
+    if (userId !== null) {
+      filter &&= movie.owner === userId;
+    }
+    return filter;
   });
 }

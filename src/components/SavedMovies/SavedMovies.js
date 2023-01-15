@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import './SavedMovies.css';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
@@ -10,7 +10,7 @@ import { mainApi } from '../../utils/MainApi';
 import { filterMovies } from '../../utils/FilterMovies';
 
 function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);  
   /** Значения переменной requestStatus: isEmpty, 'loading', 'success', 'notFound', 'failed' */
   const [requestStatus, setRequestStatus] = useState('');
   const [request, setRequest] = useState('');
@@ -36,7 +36,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     }
     setRequestStatus('loading');
     const allSavedCards = JSON.parse(localStorage.getItem('saved-movies'));
-    const filteredSavedCards = filterMovies(request, allSavedCards, onlyShortFilms, currentUser._id);
+    const filteredSavedCards = filterMovies(allSavedCards, request, onlyShortFilms, null);
     setCards(filteredSavedCards);
     localStorage.setItem('saved-movies-request', request);
     localStorage.setItem('saved-movies-filter', JSON.stringify(onlyShortFilms));
@@ -54,17 +54,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
         console.log(err);
       });
   }
-
-  useEffect(() => {
-    mainApi.getCards()
-      .then((res) => {
-        localStorage.setItem('saved-movies', JSON.stringify(res.data));       
-      })
-      .catch((err) => {
-        setRequestStatus('failed');
-      });
-  }, []);
-
+  
   useEffect(() => {
     if (requestStatus === '') {
       let req = '', filter = false;
@@ -78,24 +68,26 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       }
       if (localStorage.getItem('saved-movies')) {
         const savedMovies = JSON.parse(localStorage.getItem('saved-movies'));
+        /** В сохраненных карточках при монтировании компонента отображается полный список карточек*/
         setCards(savedMovies);
       } else {
         mainApi.getCards()
           .then((res) => {
-            if (res.data.length > 0) {
-              localStorage.setItem('saved-movies', JSON.stringify(res.data));
-            }
+            /** отбираю только карточки текущего пользователя */            
+            const userCards = filterMovies(res.data, null, null, currentUser._id);            
+            localStorage.setItem('saved-movies', JSON.stringify(userCards));
+            /** В сохраненных карточках при монтировании компонента отображается полный список карточек текущего пользователя*/
             setCards(res.data);
           })
           .catch((err) => {
-
+            setRequestStatus('failed');
           });
-      }
+      }      
     }
 
-    if ((requestStatus === 'success' || requestStatus === 'notFound') && filterChanged.current) {
+    if ((requestStatus === 'success' || requestStatus === 'notFound' || requestStatus === 'isEmpty') && filterChanged.current) {
       filterChanged.current = false;
-      const movies = filterMovies(request, [...JSON.parse(localStorage.getItem('saved-movies'))], onlyShortFilms, currentUser._id);
+      const movies = filterMovies([...JSON.parse(localStorage.getItem('saved-movies'))], request, onlyShortFilms, null);
       if (movies.length > 0) {
         localStorage.setItem('saved-movies-request', request);
         localStorage.setItem('saved-movies-filter', onlyShortFilms);
@@ -109,18 +101,18 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     }
   }, [requestStatus, request, onlyShortFilms, currentUser]);
 
-  useEffect(()=>{
-    if(cards.length>0){
+  useEffect(() => {    
+    if (cards.length > 0) {
       setRequestStatus('success');
-    }else{
+    } else {
       setRequestStatus('notFound');
     }
-  },[cards])
+  }, [cards])
 
   return (
     <>
       <BurgerMenu isOpen={isBurgerMenuOpen} onClose={onBurgerMenuClose} />
-      <SearchForm 
+      <SearchForm
         request={request}
         onlyShortFilms={onlyShortFilms}
         onSubmit={handleSearch}

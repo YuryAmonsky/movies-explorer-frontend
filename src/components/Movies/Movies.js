@@ -44,7 +44,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     getMovies()
       .then((res) => {
         localStorage.setItem('movies', JSON.stringify(res));
-        const movies = filterMovies(request, [...res], onlyShortFilms, null);
+        const movies = filterMovies([...res], request, onlyShortFilms, null);
         if (movies.length > 0) {
           localStorage.setItem('movies-request', request);
           localStorage.setItem('movies-filter', onlyShortFilms);
@@ -99,18 +99,18 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
 
   useEffect(() => {
     if (requestStatus === '') {
-      let req = '', filter = false, movies = [];
+      let req = '', durationFilter = false, movies = [];
       if (localStorage.getItem('movies-request')) {
         req = localStorage.getItem('movies-request');
         setRequest(req);
       }
       if (localStorage.getItem('movies-filter')) {
-        filter = JSON.parse(localStorage.getItem('movies-filter'));
-        setOnlyShortFilms(filter);
+        durationFilter = JSON.parse(localStorage.getItem('movies-filter'));
+        setOnlyShortFilms(durationFilter);
       }
       if (localStorage.getItem('movies')) {
         movies = JSON.parse(localStorage.getItem('movies'));
-        setCards([...filterMovies(req, movies, filter, null)]);
+        setCards([...filterMovies(movies, req, durationFilter, null)]);
         setRequestStatus('success');
       }
       if (localStorage.getItem('saved-movies')) {
@@ -132,7 +132,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
 
     if ((requestStatus === 'success' || requestStatus === 'notFound') && filterChanged.current) {
       filterChanged.current = false;
-      const movies = filterMovies(request, [...JSON.parse(localStorage.getItem('movies'))], onlyShortFilms, null);
+      const movies = filterMovies([...JSON.parse(localStorage.getItem('movies'))], request, onlyShortFilms, null);
       if (movies.length > 0) {
         localStorage.setItem('movies-request', request);
         localStorage.setItem('movies-filter', onlyShortFilms);
