@@ -1,4 +1,4 @@
-import { moviesURL } from "./MoviesApi";
+import { MOVIES_URL } from "./MoviesApi";
 
 class MainApi {
   constructor({ baseUrl, headers }) {
@@ -86,8 +86,8 @@ class MainApi {
         duration: card.duration,
         description: card.description,
         trailerLink: card.trailerLink,
-        image: `${moviesURL}${card.image.url}`,
-        thumbnail: `${moviesURL}${card.image.formats.thumbnail.url}`,
+        image: `${MOVIES_URL}${card.image.url}`,
+        thumbnail: `${MOVIES_URL}${card.image.formats.thumbnail.url}`,
       },
     })
   }

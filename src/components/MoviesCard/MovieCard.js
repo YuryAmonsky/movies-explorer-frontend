@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './MovieCard.css';
-import { moviesURL } from '../../utils/MoviesApi';
+import { MOVIES_URL } from '../../utils/MoviesApi';
 
 function MovieCard({ card, isFavorite, isSavedMoviesOpen, onButtonClick }) {
   
@@ -19,7 +19,7 @@ function MovieCard({ card, isFavorite, isSavedMoviesOpen, onButtonClick }) {
       <a className="movie-card__link" href={card.trailerLink} target="_blank" rel="noreferrer">
         <img 
           className="movie-card__thumbnail"
-          src={!isSavedMoviesOpen? `${moviesURL}${card.image.url}`: card.image}
+          src={!isSavedMoviesOpen? `${MOVIES_URL}${card.image.url}`: card.image}
           alt={`Кадр из фильма ${card.nameRU}`}
         >          
         </img>

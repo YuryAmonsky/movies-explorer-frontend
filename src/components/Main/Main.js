@@ -7,10 +7,18 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 
 function Main({ isBurgerMenuOpen, onBurgerMenuClose }){
+  const handlePromoButtonClick = (yCoord)=>{
+    window.scrollTo({
+      top: yCoord,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
   return (
     <>
       <BurgerMenu isOpen={isBurgerMenuOpen} onClose={onBurgerMenuClose} />
-      <Promo />
+      <Promo onButtonClick={handlePromoButtonClick}/>
       <AboutProject/>
       <Techs/>
       <AboutMe/>
