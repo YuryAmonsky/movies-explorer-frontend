@@ -10,7 +10,7 @@ import { mainApi } from '../../utils/MainApi';
 import { filterMovies } from '../../utils/FilterMovies';
 
 function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
-  const currentUser = useContext(CurrentUserContext);  
+  const currentUser = useContext(CurrentUserContext);
   /** Значения переменной requestStatus: isEmpty, 'loading', 'success', 'notFound', 'failed' */
   const [requestStatus, setRequestStatus] = useState('');
   const [request, setRequest] = useState('');
@@ -36,11 +36,10 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
     }
     setRequestStatus('loading');
     const allSavedCards = JSON.parse(localStorage.getItem('saved-movies'));
-    const filteredSavedCards = filterMovies(allSavedCards, request, onlyShortFilms, null);
-    setCards(filteredSavedCards);
+    const filteredCards = filterMovies(allSavedCards, request, onlyShortFilms, null);
+    setCards(filteredCards);
     localStorage.setItem('saved-movies-request', request);
     localStorage.setItem('saved-movies-filter', JSON.stringify(onlyShortFilms));
-
   };
 
   const handleDeleteCard = (card) => {
@@ -54,7 +53,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
         console.log(err);
       });
   }
-  
+
   useEffect(() => {
     if (requestStatus === '') {
       let req = '', filter = false;
@@ -68,40 +67,38 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       }
       if (localStorage.getItem('saved-movies')) {
         const savedMovies = JSON.parse(localStorage.getItem('saved-movies'));
-        /** В сохраненных карточках при монтировании компонента отображается полный список карточек*/
-        setCards(savedMovies);
+        const filteredCards = filterMovies(savedMovies, req ? req : null, filter, null);
+        setCards(filteredCards);
       } else {
         mainApi.getCards()
           .then((res) => {
-            /** отбираю только карточки текущего пользователя */            
-            const userCards = filterMovies(res.data, null, null, currentUser._id);            
+            /** отбираю только карточки текущего пользователя */
+            const userCards = filterMovies(res.data, null, null, currentUser._id);
             localStorage.setItem('saved-movies', JSON.stringify(userCards));
-            /** В сохраненных карточках при монтировании компонента отображается полный список карточек текущего пользователя*/
-            setCards(res.data);
+            const filteredCards = filterMovies(userCards, req ? req : null, filter, null);
+            setCards(filteredCards);
           })
           .catch((err) => {
             setRequestStatus('failed');
           });
-      }      
+      }
     }
 
     if ((requestStatus === 'success' || requestStatus === 'notFound' || requestStatus === 'isEmpty') && filterChanged.current) {
       filterChanged.current = false;
-      const movies = filterMovies([...JSON.parse(localStorage.getItem('saved-movies'))], request, onlyShortFilms, null);
-      if (movies.length > 0) {
+      const filteredMovies = filterMovies([...JSON.parse(localStorage.getItem('saved-movies'))], request, onlyShortFilms, null);
+      if (filteredMovies.length > 0) {
         localStorage.setItem('saved-movies-request', request);
-        localStorage.setItem('saved-movies-filter', onlyShortFilms);
-        setCards([...movies]);
-        setRequestStatus('success');
+        localStorage.setItem('saved-movies-filter', onlyShortFilms);        
       } else {
         localStorage.removeItem('saved-movies-request');
         localStorage.removeItem('saved-movies-filter');
-        setRequestStatus('notFound');
       }
+      setCards([...filteredMovies]);
     }
   }, [requestStatus, request, onlyShortFilms, currentUser]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (cards.length > 0) {
       setRequestStatus('success');
     } else {

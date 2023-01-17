@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './Movies.css';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import SearchForm from '../SearchForm/SearchForm';
@@ -8,8 +8,10 @@ import { getMovies } from '../../utils/MoviesApi';
 import {filterMovies} from '../../utils/FilterMovies';
 import useCardListConf from '../../hooks/useCardListConf';
 import { mainApi } from '../../utils/MainApi';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {  
+function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) { 
+  const currentUser = useContext(CurrentUserContext)
   const { cardListConf } = useCardListConf();
   /** Значения переменной requestStatus: isEmpty, 'loading', 'success', 'notFound', 'failed' */
   const [requestStatus, setRequestStatus] = useState('');
@@ -119,9 +121,10 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
       } else {
         mainApi.getCards()
           .then((res) => {
-            if (res.data.length > 0) {
-              localStorage.setItem('saved-movies', JSON.stringify(res.data));
-            }
+            //if (res.data.length > 0) {
+              const userCards = filterMovies(res.data, null, null, currentUser._id);
+              localStorage.setItem('saved-movies', JSON.stringify(userCards));
+            //}
             setSavedCards(res.data);
           })
           .catch((err) => {
@@ -144,7 +147,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose }) {
         setRequestStatus('notFound');
       }
     }
-  }, [requestStatus, request, onlyShortFilms]);
+  }, [requestStatus, request, onlyShortFilms, currentUser]);
 
   useEffect(() => {
     if (cardsToShow > 0) {
