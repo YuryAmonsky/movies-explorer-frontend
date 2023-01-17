@@ -1,0 +1,5 @@
+// eslint-disable-next-line
+const NAME_PATTERN="[A-Za-zА-Яа-яЁё]+[A-Za-zА-Яа-яЁё\s\-]+";
+
+
+export default NAME_PATTERN;

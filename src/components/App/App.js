@@ -83,6 +83,8 @@ function App() {
 
   /** Эффекты */
   useEffect(() => {
+
+    console.log("app1");
     if (localStorage.getItem('jwt')) {
       mainApi.setAuthorization(localStorage.getItem('jwt'));
       mainApi.getUserData()
@@ -93,12 +95,11 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-    } else {
-
     }
   }, []);
 
   useEffect(() => {
+    console.log("app2");
     if (currentUser.isLoggedIn) {
       history.push('/movies');
     }else{

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormValidator } from "../../hooks/useFormValidator";
 import AuthForm from "../AuthForm/AuthForm";
 
 function Login({onSubmit}) {
+  const {inputs, isValid, handleChange} = useFormValidator();
+  /*
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleEmailChange = (evt)=>{
@@ -10,15 +13,15 @@ function Login({onSubmit}) {
 
   const handlePasswordChange = (evt)=>{
     setPassword(evt.target.value);
-  }
+  }*/
 
   const handleSubmit = (evt)=>{
     evt.preventDefault();
-    onSubmit(email, password);
+    onSubmit(inputs.email.value, inputs.password.value);
   }
 
   return (
-    <AuthForm isRegForm={false} onSubmit={handleSubmit}>      
+    <AuthForm isRegForm={false} onSubmit={handleSubmit} isValid={isValid}>      
       <label className="form__input-label">E-mail</label>
       <input
         className="form__input"
@@ -28,9 +31,9 @@ function Login({onSubmit}) {
         placeholder="Email"
         required
         autoComplete="off"
-        onChange={handleEmailChange}
-        value = {email}
-      />
+        onChange={handleChange}
+        value = {inputs.email?.value||""}
+      />      
       <label className="form__input-label">Пароль</label>
       <input
         className="form__input"
@@ -41,10 +44,11 @@ function Login({onSubmit}) {
         minLength="8"
         required
         autoComplete="off"
-        onChange={handlePasswordChange}
-        value = {password}
+        onChange={handleChange}
+        value = {inputs.password?.value||""}
       />
-      <span className="form__error-hint">Что-то пошло не так...</span>
+      <span className="form__error-hint">{inputs.email?.error}</span>
+      <span className="form__error-hint">{inputs.password?.error}</span>
     </AuthForm>    
   );
 }
