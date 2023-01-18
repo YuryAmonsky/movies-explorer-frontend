@@ -4,17 +4,6 @@ import AuthForm from "../AuthForm/AuthForm";
 
 function Login({onSubmit}) {
   const {inputs, isValid, handleChange} = useFormValidator();
-  /*
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const handleEmailChange = (evt)=>{
-    setEmail(evt.target.value);
-  }
-
-  const handlePasswordChange = (evt)=>{
-    setPassword(evt.target.value);
-  }*/
-
   const handleSubmit = (evt)=>{
     evt.preventDefault();
     onSubmit(inputs.email.value, inputs.password.value);

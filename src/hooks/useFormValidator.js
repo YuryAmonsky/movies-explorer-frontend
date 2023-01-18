@@ -32,8 +32,7 @@ export const useFormValidator = () => {
       input.setCustomValidity('');
   }
 
-  const initializeForm = useCallback((objInputs) => {
-    console.log('initForm');
+  const initializeForm = useCallback((objInputs) => {    
     setIsValid(true);
     setInputs(objInputs);
   }, []);

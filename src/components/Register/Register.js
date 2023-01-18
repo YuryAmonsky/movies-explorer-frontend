@@ -5,20 +5,7 @@ import AuthForm from "../AuthForm/AuthForm";
 
 function Register({onSubmit}) {
   const {inputs, isValid, handleChange} = useFormValidator();
-  /*onst [name, setName] =useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const handleNameChange = (evt)=>{
-    setName(evt.target.value);
-  }
-  const handleEmailChange = (evt)=>{
-    setEmail(evt.target.value);
-  }
-
-  const handlePasswordChange = (evt)=>{
-    setPassword(evt.target.value);
-  }
-*/
+  
   const handleSubmit = (evt)=>{
     evt.preventDefault();
     onSubmit(inputs.name.value, inputs.email.value, inputs.password.value);
