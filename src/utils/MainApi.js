@@ -14,11 +14,7 @@ class MainApi {
   }) {
     return fetch(`${this._baseUrl}${url}`, {
       method,
-      headers: this._headers, //{
-        //'Accept': 'application/json',
-        //'Content-type': 'application/json',
-        //...!!token && { 'authorization': `Bearer ${token}` }
-      //},
+      headers: this._headers, 
       ...!!data && { body: JSON.stringify(data) }
     })
       .then((res) => {
@@ -103,8 +99,7 @@ class MainApi {
 export const mainApi = new MainApi({
   baseUrl: 'http://localhost:3002',//'https://api.amo.movies-explorer.nomoredomains.club',
   headers: {
-    authorization: '',
-    //'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhiM2I5MjdiNjJmYzI2MGFlMzc4MTciLCJpYXQiOjE2NzM0NjczMzMsImV4cCI6MTY3NDA3MjEzM30.NKz7xFLK82g3LjKl09RWnSR3zyRWyU3UwuIolQMNjDw',
+    authorization: '',    
     'Content-Type': 'application/json'
   }
 })

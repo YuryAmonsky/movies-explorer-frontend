@@ -3,25 +3,15 @@ import './Profile.css';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormValidator } from '../../hooks/useFormValidator';
-import NAME_PATTERN from '../../utils/Constants,js';
+import { NAME_PATTERN } from '../../utils/Constants.js';
 
 function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout }) {
   let initialState = useRef(true);
   const currentUser = useContext(CurrentUserContext);
 
   const { inputs, isValid, handleChange, initializeForm } = useFormValidator();
-  //  const [name, setName] = useState('');
-  //  const [email, setEmail] = useState('');
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
-  /*
-    const handleChangeName = (evt) => {
-      setName(evt.target.value);
-    }
-  
-    const handleChangeEmail = (evt) => {
-      setEmail(evt.target.value);
-    }
-  */
+
   const handleSubmitButtonClick = (evt) => {
     evt.preventDefault();
     onEditProfile(inputs.name.value, inputs.email.value);

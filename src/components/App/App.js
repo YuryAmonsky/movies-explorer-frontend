@@ -13,12 +13,16 @@ import Footer from '../Footer/Footer';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import Notice from '../Notice/Notice';
+import { ALERT_PROFILE_UPDATED, ALERT_USER_REGISTERED } from '../../utils/Constants';
+
 
 function App() {
   /** Состояния */
   const [initialized, setInitialized] = useState(false);
   const [currentUser, setCurrentUser] = useState({ '_id': '', 'name': '', 'email': '', 'isLoggedIn': false });
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const [noticeState, setNoticeState] = useState({ message: '', isOpen: false, isSuccess: false });
   const history = useHistory();
 
   /** Обработчики */
@@ -35,17 +39,17 @@ function App() {
   const handleRegister = (name, email, password) => {
     mainApi.register(name, email, password)
       .then(res => {
-        console.log('user registered');
+        setNoticeState({ message: ALERT_USER_REGISTERED, isOpen: true, isSuccess: true });
         return mainApi.login(email, password);
       })
       .then(loginRes => {
         localStorage.setItem('jwt', loginRes.token);
         mainApi.setAuthorization(loginRes.token);
-        setCurrentUser({ ...loginRes.user, isLoggedIn: true });
-        console.log('user authorized');
+        setCurrentUser({ ...loginRes.user, isLoggedIn: true });        
       })
       .catch(err => {
         console.log(`${err.statusCode}. ${err.message}`);
+        setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
       });
   }
 
@@ -58,6 +62,7 @@ function App() {
       })
       .catch(err => {
         console.log(`${err.statusCode}. ${err.message}`);
+        setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
       });
   }
 
@@ -76,11 +81,17 @@ function App() {
   const handleEditProfile = (name, email) => {
     mainApi.updateUserData(name, email)
       .then((res) => {
+        setNoticeState({ message: ALERT_PROFILE_UPDATED, isOpen: true, isSuccess: true });
         setCurrentUser({ ...res.data, isLoggedIn: currentUser.isLoggedIn });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(`${err.statusCode}. ${err.message}`);
+        setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
       });
+  };
+
+  const handleNoticeButtonClick = () => {
+    setNoticeState({ message: '', isOpen: false, isSuccess: false });
   };
 
   /** Эффекты */
@@ -89,17 +100,18 @@ function App() {
       mainApi.setAuthorization(localStorage.getItem('jwt'));
       mainApi.getUserData()
         .then((res) => {
-          setCurrentUser({ ...res.data, isLoggedIn: true });          
+          setCurrentUser({ ...res.data, isLoggedIn: true });
         })
         .catch((err) => {
-          console.log(err);
+          console.log(`${err.statusCode}. ${err.message}`);
+          setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
         })
         .finally(() => {
-          setInitialized(true);          
+          setInitialized(true);
         });
     } else {
       mainApi.setAuthorization('');
-      setInitialized(true);            
+      setInitialized(true);
     }
   }, []);
 
@@ -152,6 +164,7 @@ function App() {
                 <Movies
                   isBurgerMenuOpen={isBurgerMenuOpen}
                   onBurgerMenuClose={handleBurgerMenuClose}
+                  setNoticeState={setNoticeState}
                 />
               </main>
               <Footer />
@@ -167,6 +180,7 @@ function App() {
                 <SavedMovies
                   isBurgerMenuOpen={isBurgerMenuOpen}
                   onBurgerMenuClose={handleBurgerMenuClose}
+                  setNoticeState={setNoticeState}
                 />
               </main>
               <Footer />
@@ -192,6 +206,12 @@ function App() {
               <PageNotFound />
             </Route>
           </Switch>
+          <Notice
+            isOpen={noticeState.isOpen}
+            message={noticeState.message}
+            isSuccess={noticeState.isSuccess}
+            onButtonClick={handleNoticeButtonClick}
+          />
         </div>
       </CurrentUserContext.Provider>
     );
