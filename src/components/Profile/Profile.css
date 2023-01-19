@@ -14,7 +14,7 @@
   line-height: 29px;
 }
 
-.profile__input-container {  
+.profile__input-container {
   width: 410px;
   display: flex;
   justify-content: space-between;
@@ -65,10 +65,11 @@
   margin-top: 30px;
   margin-bottom: 10px;
   width: 410px;
-  min-height: 12px;
+  min-height: 50px;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
+  white-space: pre-wrap;
   color: #EE3465;
 }
 
@@ -138,10 +139,10 @@
   .profile__input-container {
     width: calc(260px + 150 * (100vw - 320px)/448);
   }
-  
+
   .profile__error-hint {
     width: calc(260px + 150 * (100vw - 320px)/448);
-  }  
+  }
 
   .profile__stroke {
     width: calc(300px + 110 * (100vw - 320px)/448);

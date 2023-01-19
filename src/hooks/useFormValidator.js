@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { validate } from "email-validator";
+import { INVLAID_EMAIL, INVLAID_NAME, INVLAID_PASSWORD } from "../utils/Constants";
 
 export const useFormValidator = () => {
   const [inputs, setInputs] = useState({});
@@ -11,17 +12,17 @@ export const useFormValidator = () => {
     const inputName = input.name;
     if (input.name === 'email') {
       if (!validate(inputValue)) {
-        input.setCustomValidity('E-mail: Неверный формат адреса');
+        input.setCustomValidity(INVLAID_EMAIL);
       } else {
         input.setCustomValidity('');
       }
     } else {
       if (!input.validity.valid) {
         if (input.name === 'name') {
-          input.setCustomValidity('Имя: должно состоять из 2х и более символов. Может включать русские, английские буквы. Пробел или дефис могут быть в середине.');
+          input.setCustomValidity(INVLAID_NAME);
         }
         if (input.name === 'password') {
-          input.setCustomValidity('Пароль: должен содержать не менее 8 символов');
+          input.setCustomValidity(INVLAID_PASSWORD);
         }
       }
     }

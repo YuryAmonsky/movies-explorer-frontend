@@ -2,15 +2,15 @@ import React from "react";
 import { useFormValidator } from "../../hooks/useFormValidator";
 import AuthForm from "../AuthForm/AuthForm";
 
-function Login({onSubmit}) {
-  const {inputs, isValid, handleChange} = useFormValidator();
-  const handleSubmit = (evt)=>{
+function Login({ onSubmit }) {
+  const { inputs, isValid, handleChange } = useFormValidator();
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit(inputs.email.value, inputs.password.value);
   }
 
   return (
-    <AuthForm isRegForm={false} onSubmit={handleSubmit} isValid={isValid}>      
+    <AuthForm isRegForm={false} onSubmit={handleSubmit} isValid={isValid}>
       <label className="form__input-label">E-mail</label>
       <input
         className="form__input"
@@ -21,8 +21,8 @@ function Login({onSubmit}) {
         required
         autoComplete="off"
         onChange={handleChange}
-        value = {inputs.email?.value||""}
-      />      
+        value={inputs.email?.value || ""}
+      />
       <label className="form__input-label">Пароль</label>
       <input
         className="form__input"
@@ -34,11 +34,22 @@ function Login({onSubmit}) {
         required
         autoComplete="off"
         onChange={handleChange}
-        value = {inputs.password?.value||""}
+        value={inputs.password?.value || ""}
       />
-      <span className="form__error-hint">{inputs.email?.error}</span>
-      <span className="form__error-hint">{inputs.password?.error}</span>
-    </AuthForm>    
+      <span className="form__error-hint">
+        {(()=>{
+            let err = '';            
+            if( inputs.email?.error){
+              err += inputs.email?.error + '\n\n\r';
+            }
+            if(inputs.password?.error){
+              err += inputs.password?.error;
+            }            
+            return err;
+          })()
+        }
+      </span>      
+    </AuthForm>
   );
 }
 

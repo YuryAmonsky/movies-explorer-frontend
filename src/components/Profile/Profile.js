@@ -51,6 +51,7 @@ function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout 
             type="text"
             placeholder="Имя"
             minLength="2"
+            maxLength="30"
             pattern={NAME_PATTERN}
             required
             value={inputs.name?.value || ""}
@@ -71,8 +72,11 @@ function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout 
             onInput={handleChange}
           />
         </div>
-        <span className="profile__error-hint">{inputs.name?.error}</span>
-        <span className="profile__error-hint">{inputs.email?.error}</span>
+        <span className="profile__error-hint">
+          {
+            (inputs.name?.error ? inputs.name?.error + "\n\r\n\r" : "") + inputs.email?.error
+          }
+        </span>
         <div className="profile__buttons">
           <button
             className="profile__button"

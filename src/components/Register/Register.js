@@ -1,4 +1,3 @@
-import React from "react";
 import { useFormValidator } from "../../hooks/useFormValidator";
 import { NAME_PATTERN } from "../../utils/Constants.js";
 import AuthForm from "../AuthForm/AuthForm";
@@ -21,6 +20,7 @@ function Register({ onSubmit }) {
         type="text"
         placeholder="Имя"
         minLength="2"
+        maxLength="30"
         pattern={NAME_PATTERN}
         required
         autoComplete="off"
@@ -52,9 +52,23 @@ function Register({ onSubmit }) {
         onChange={handleChange}
         value={inputs.password?.value || ""}
       />
-      <span className="form__error-hint">{inputs.name?.error}</span>
-      <span className="form__error-hint">{inputs.email?.error}</span>
-      <span className="form__error-hint">{inputs.password?.error}</span>
+      <span className="form__error-hint">
+        {
+          (() => {
+            let err = '';
+            if (inputs.name?.error) {
+              err += inputs.name?.error + '\n\n\r';
+            }
+            if (inputs.email?.error) {
+              err += inputs.email?.error + '\n\n\r';
+            }
+            if (inputs.password?.error) {
+              err += inputs.password?.error;
+            }
+            return err;
+          })()
+        }
+      </span>
     </AuthForm>
   );
 }

@@ -1,9 +1,14 @@
 /** API URLs */
-export const MAIN_API = 'https://api.amo.movies-explorer.nomoredomains.club';
+export const MAIN_API = 'http://localhost:3002'//'https://api.amo.movies-explorer.nomoredomains.club';
 export const BEATFILM = 'https://api.nomoreparties.co';
 
 // eslint-disable-next-line
-export const NAME_PATTERN="^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\ \-]+[A-Za-zА-Яа-яЁё]$";
+export const NAME_PATTERN="^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\ \-]*[A-Za-zА-Яа-яЁё]$";
+
+/** Тексты ошибок валидации форм*/
+export const INVLAID_NAME='Имя: от 2х до 30 символов (русские, английские буквы, пробел или дефис.)';
+export const INVLAID_EMAIL='E-mail: Неверный формат адреса';
+export const INVLAID_PASSWORD='Пароль: должен содержать не менее 8 символов';
 
 /** Названия ключей сохраняемых в LocalStorage */
 export const LS_KEY_MOVIES_REQUEST = 'movies-request';
