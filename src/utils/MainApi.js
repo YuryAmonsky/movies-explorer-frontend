@@ -1,4 +1,4 @@
-import { MOVIES_URL } from "./MoviesApi";
+import { BEATFILM, MAIN_API } from "./Constants";
 
 class MainApi {
   constructor({ baseUrl, headers }) {
@@ -9,7 +9,6 @@ class MainApi {
   _request({
     url,
     method = 'POST',
-    token,
     data
   }) {
     return fetch(`${this._baseUrl}${url}`, {
@@ -82,8 +81,8 @@ class MainApi {
         duration: card.duration,
         description: card.description,
         trailerLink: card.trailerLink,
-        image: `${MOVIES_URL}${card.image.url}`,
-        thumbnail: `${MOVIES_URL}${card.image.formats.thumbnail.url}`,
+        image: `${BEATFILM}${card.image.url}`,
+        thumbnail: `${BEATFILM}${card.image.formats.thumbnail.url}`,
       },
     })
   }
@@ -97,7 +96,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  baseUrl: 'http://localhost:3002',//'https://api.amo.movies-explorer.nomoredomains.club',
+  baseUrl: MAIN_API,
   headers: {
     authorization: '',    
     'Content-Type': 'application/json'
