@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import './MovieCard.css';
-import { BEATFILM } from '../../utils/MoviesApi';
+import { BEATFILM } from '../../utils/Constants';
 
 function MovieCard({ card, isFavorite, isSavedMoviesOpen, onButtonClick }) {
   
