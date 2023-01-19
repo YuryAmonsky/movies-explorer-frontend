@@ -1,5 +1,5 @@
 /** API URLs */
-export const MAIN_API = 'http://localhost:3002'//'https://api.amo.movies-explorer.nomoredomains.club';
+export const MAIN_API = 'https://api.amo.movies-explorer.nomoredomains.club';
 export const BEATFILM = 'https://api.nomoreparties.co';
 
 // eslint-disable-next-line
