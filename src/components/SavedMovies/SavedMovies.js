@@ -130,6 +130,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
         onSubmit={handleSearch}
         onRequestChange={handleRequestChange}
         onFilterChange={handleFilterChange}
+        isFormDisabled = {requestStatus===REQ_STATE_LOADING? true: false}
       />
       <section className="saved-movies">
         {requestStatus === REQ_STATE_LOADING && <Preloader />}

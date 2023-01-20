@@ -79,7 +79,7 @@
   cursor: pointer;
 }
 
-.search-form__filter::before {
+.search-form__filter::after {
   content: '';
   display: inline-block;
   width: 36px;
@@ -87,7 +87,7 @@
   background-image: url(../../images/ui/smalltumboff.svg);
 }
 
-.search-form__filter:checked::before {
+.search-form__filter:checked::after {
   content: '';
   display: inline-block;
   width: 36px;
@@ -100,7 +100,7 @@
   background: none; 
 }
 
-.search-form__filter:focus::before {
+.search-form__filter:focus::after {
   outline: 1px solid #00000060;
   border-radius: 8px;
 }

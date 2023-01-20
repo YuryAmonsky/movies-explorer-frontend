@@ -23,6 +23,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ '_id': '', 'name': '', 'email': '', 'isLoggedIn': false });
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
   const [noticeState, setNoticeState] = useState({ message: '', isOpen: false, isSuccess: false });
+  const [isFormDisaled, setisFormDisabled] = useState(false);
   const history = useHistory();
 
   /** Обработчики */
@@ -37,6 +38,7 @@ function App() {
   }
 
   const handleRegister = (name, email, password) => {
+    setisFormDisabled(true);
     mainApi.register(name, email, password)
       .then(res => {
         setNoticeState({ message: ALERT_USER_REGISTERED, isOpen: true, isSuccess: true });
@@ -45,15 +47,19 @@ function App() {
       .then(loginRes => {
         localStorage.setItem('jwt', loginRes.token);
         mainApi.setAuthorization(loginRes.token);
-        setCurrentUser({ ...loginRes.user, isLoggedIn: true });        
+        setCurrentUser({ ...loginRes.user, isLoggedIn: true });
       })
       .catch(err => {
         console.log(`${err.statusCode}. ${err.message}`);
         setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
-      });
+      })
+      .finally(()=>{
+        setisFormDisabled(false);
+      });      
   }
 
   const handleLogin = (email, password) => {
+    setisFormDisabled(true);
     mainApi.login(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token);
@@ -63,6 +69,9 @@ function App() {
       .catch(err => {
         console.log(`${err.statusCode}. ${err.message}`);
         setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
+      })
+      .finally(()=>{
+        setisFormDisabled(false);
       });
   }
 
@@ -79,6 +88,7 @@ function App() {
   }
 
   const handleEditProfile = (name, email) => {
+    setisFormDisabled(true);
     mainApi.updateUserData(name, email)
       .then((res) => {
         setNoticeState({ message: ALERT_PROFILE_UPDATED, isOpen: true, isSuccess: true });
@@ -87,6 +97,9 @@ function App() {
       .catch((err) => {
         console.log(`${err.statusCode}. ${err.message}`);
         setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
+      })
+      .finally(()=>{
+        setisFormDisabled(false);
       });
   };
 
@@ -140,7 +153,10 @@ function App() {
                 <Redirect to="/movies" />
                 :
                 <main>
-                  <Register onSubmit={handleRegister} />
+                  <Register 
+                    onSubmit={handleRegister} 
+                    isFormDisabled={isFormDisaled} 
+                  />
                 </main>
               }
             </Route>
@@ -149,7 +165,10 @@ function App() {
                 <Redirect to="/movies" />
                 :
                 <main>
-                  <Login onSubmit={handleLogin} />
+                  <Login
+                    onSubmit={handleLogin}
+                    isFormDisabled={isFormDisaled}
+                  />
                 </main>
               }
             </Route>
@@ -198,6 +217,7 @@ function App() {
                   onBurgerMenuClose={handleBurgerMenuClose}
                   onEditProfile={handleEditProfile}
                   onLogout={handleLogout}
+                  isFormDisabled={isFormDisaled}
                 />
               </main>
             </ProtectedRoute>

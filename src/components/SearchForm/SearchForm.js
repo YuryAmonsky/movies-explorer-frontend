@@ -7,7 +7,8 @@ function SearchForm({
   onlyShortFilms,
   onSubmit,
   onRequestChange,
-  onFilterChange
+  onFilterChange,
+  isFormDisabled
 }) {
   const handleRequestChange = (evt) => {
     onRequestChange(evt);
@@ -31,12 +32,14 @@ function SearchForm({
           placeholder="Фильм"
           onChange={handleRequestChange}
           value={request}
+          disabled = {isFormDisabled}
         />
         <button
           className="search-form__submit-button"
           name="searchButton"
           type="submit"
           formMethod="post"
+          disabled = {isFormDisabled}
         >
         </button>
       </div>
@@ -48,6 +51,7 @@ function SearchForm({
           type="checkbox"
           onChange={HandleFilterChange}
           checked={onlyShortFilms}
+          disabled = {isFormDisabled}
         />
         <label className='search-form__filter-label'>Короткометражки</label>
       </div>

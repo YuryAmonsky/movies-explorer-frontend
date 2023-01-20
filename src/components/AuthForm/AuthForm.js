@@ -4,7 +4,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './AuthForm.css';
 import Logo from "../Logo/Logo";
 
-function AuthForm({ isRegForm, onSubmit, isValid, children }) {
+function AuthForm({ isRegForm, onSubmit, isValid, isFormDisabled, children }) {
   const currentUser = React.useContext(CurrentUserContext);
   return (
     <form className="form" onSubmit={onSubmit} name="authForm" noValidate>
@@ -28,7 +28,7 @@ function AuthForm({ isRegForm, onSubmit, isValid, children }) {
           type="submit"
           formMethod="post"  
           name="submitButton"
-          disabled = {currentUser.isLoggedIn || !isValid}
+          disabled = {currentUser.isLoggedIn || !isValid || isFormDisabled}
         >
           {
             isRegForm ?

@@ -5,7 +5,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormValidator } from '../../hooks/useFormValidator';
 import { NAME_PATTERN } from '../../utils/Constants.js';
 
-function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout }) {
+function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout, isFormDisabled }) {
   let initialState = useRef(true);
   const currentUser = useContext(CurrentUserContext);
 
@@ -54,6 +54,7 @@ function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout 
             maxLength="30"
             pattern={NAME_PATTERN}
             required
+            disabled = {isFormDisabled}
             value={inputs.name?.value || ""}
             onInput={handleChange}
           />
@@ -68,13 +69,14 @@ function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout 
             type="email"
             placeholder="Email"
             required
+            disabled = {isFormDisabled}
             value={inputs.email?.value || ""}
             onInput={handleChange}
           />
         </div>
         <span className="profile__error-hint">
           {
-            (inputs.name?.error ? inputs.name?.error + "\n\r\n\r" : "") + inputs.email?.error
+            (inputs.name?.error ? inputs.name?.error + "\n\n\r" : "") + inputs.email?.error
           }
         </span>
         <div className="profile__buttons">
@@ -83,7 +85,7 @@ function Profile({ isBurgerMenuOpen, onBurgerMenuClose, onEditProfile, onLogout 
             name="sabmitButton"
             formMethod="post"
             type="submit"
-            disabled={submitButtonDisabled || !isValid}
+            disabled={submitButtonDisabled || !isValid || isFormDisabled}
           >Редактировать</button>
           <button
             className="profile__button profile__button_type_exit"

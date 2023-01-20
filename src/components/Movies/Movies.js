@@ -57,7 +57,12 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
       return setRequestStatus(REQ_STATE_EMPTY);
     }
     setRequestStatus(REQ_STATE_LOADING);
-    getMovies()
+    if (localStorage.getItem(LS_KEY_MOVIES)) {
+      const movies = JSON.parse(localStorage.getItem(LS_KEY_MOVIES));
+      setCards([...filterMovies(movies, request, onlyShortFilms, null)]);
+      setRequestStatus(REQ_STATE_SUCCESS);    
+    }else{
+      getMovies()
       .then((res) => {
         localStorage.setItem(LS_KEY_MOVIES, JSON.stringify(res));
         const movies = filterMovies([...res], request, onlyShortFilms, null);
@@ -73,6 +78,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
       .catch(() => {
         setRequestStatus(REQ_STATE_FAILED);
       });
+    }    
   };
 
   const handleAddCards = () => {
@@ -183,6 +189,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
         onSubmit={handleSearch}
         onRequestChange={handleRequestChange}
         onFilterChange={handleFilterChange}
+        isFormDisabled = {requestStatus===REQ_STATE_LOADING? true: false}
       />
       <section className="movies">
         {requestStatus === REQ_STATE_LOADING && <Preloader />}

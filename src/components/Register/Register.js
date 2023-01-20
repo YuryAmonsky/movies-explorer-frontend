@@ -2,7 +2,7 @@ import { useFormValidator } from "../../hooks/useFormValidator";
 import { NAME_PATTERN } from "../../utils/Constants.js";
 import AuthForm from "../AuthForm/AuthForm";
 
-function Register({ onSubmit }) {
+function Register({ onSubmit, isFormDisabled}) {
   const { inputs, isValid, handleChange } = useFormValidator();
 
   const handleSubmit = (evt) => {
@@ -11,7 +11,12 @@ function Register({ onSubmit }) {
   }
 
   return (
-    <AuthForm isRegForm={true} onSubmit={handleSubmit} isValid={isValid}>
+    <AuthForm 
+      isRegForm={true}
+      onSubmit={handleSubmit}
+      isValid={isValid}
+      isFormDisabled = {isFormDisabled}
+    >
       <label className="form__input-label">Имя</label>
       <input
         className="form__input"
@@ -23,6 +28,7 @@ function Register({ onSubmit }) {
         maxLength="30"
         pattern={NAME_PATTERN}
         required
+        disabled = {isFormDisabled}
         autoComplete="off"
         onChange={handleChange}
         value={inputs.name?.value || ""}
@@ -35,6 +41,7 @@ function Register({ onSubmit }) {
         type="email"
         placeholder="Email"
         required
+        disabled = {isFormDisabled}
         autoComplete="off"
         onChange={handleChange}
         value={inputs.email?.value || ""}
@@ -48,6 +55,7 @@ function Register({ onSubmit }) {
         placeholder="Пароль"
         minLength="8"
         required
+        disabled = {isFormDisabled}
         autoComplete="off"
         onChange={handleChange}
         value={inputs.password?.value || ""}
