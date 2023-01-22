@@ -1,3 +1,5 @@
+import { SHORT_FILM_DURATION } from "./Constants";
+
 export const filterMovies = (movies, req, onlyShortFilms, userId) => {
   return movies.filter((movie) => {
     let filter = true;
@@ -8,7 +10,7 @@ export const filterMovies = (movies, req, onlyShortFilms, userId) => {
     }
     if (onlyShortFilms !== null) {
       if (onlyShortFilms) {
-        filter &&= movie.duration <= 40;
+        filter &&= movie.duration <= SHORT_FILM_DURATION;
       }
     }
     if (userId !== null) {

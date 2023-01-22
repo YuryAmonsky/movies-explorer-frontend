@@ -57,32 +57,40 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
       return setRequestStatus(REQ_STATE_EMPTY);
     }
     setRequestStatus(REQ_STATE_LOADING);
+
     if (localStorage.getItem(LS_KEY_MOVIES)) {
       const movies = JSON.parse(localStorage.getItem(LS_KEY_MOVIES));
-      setCards([...filterMovies(movies, request, onlyShortFilms, null)]);
-      setRequestStatus(REQ_STATE_SUCCESS);    
-    }else{
+      const filteredMovies = filterMovies(movies, request, onlyShortFilms, null);
+      if (filteredMovies.length > 0) {
+        localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
+        localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
+        setCards([...filteredMovies]);
+        setRequestStatus(REQ_STATE_SUCCESS);
+      } else {
+        setRequestStatus(REQ_STATE_NOT_FOUND);
+      }
+    } else {
       getMovies()
-      .then((res) => {
-        localStorage.setItem(LS_KEY_MOVIES, JSON.stringify(res));
-        const movies = filterMovies([...res], request, onlyShortFilms, null);
-        if (movies.length > 0) {
-          localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
-          localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
-          setCards([...movies]);
-          setRequestStatus(REQ_STATE_SUCCESS);
-        } else {
-          setRequestStatus(REQ_STATE_NOT_FOUND);
-        }
-      })
-      .catch(() => {
-        setRequestStatus(REQ_STATE_FAILED);
-      });
-    }    
+        .then((res) => {
+          localStorage.setItem(LS_KEY_MOVIES, JSON.stringify(res));
+          const movies = filterMovies([...res], request, onlyShortFilms, null);
+          if (movies.length > 0) {
+            localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
+            localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
+            setCards([...movies]);
+            setRequestStatus(REQ_STATE_SUCCESS);
+          } else {
+            setRequestStatus(REQ_STATE_NOT_FOUND);
+          }
+        })
+        .catch(() => {
+          setRequestStatus(REQ_STATE_FAILED);
+        });
+    }
   };
 
   const handleAddCards = () => {
-    setCardsToShow(cardsToShow + cardListConf.cardsInRow)
+    setCardsToShow(cardsToShow + cardListConf.moreCards)
   }
 
   const saveCard = (card) => {
@@ -170,6 +178,11 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
 
   useEffect(() => {
     if (cardsToShow > 0) {
+      const cardsInIncompleteRow = cardsToShow%cardListConf.cardsInRow;
+      const cardsMissingToFullLine = cardsInIncompleteRow ? cardListConf.cardsInRow-cardsInIncompleteRow: 0;
+      if(cardsInIncompleteRow>0){
+        setCardsToShow(cardsToShow+cardsMissingToFullLine);
+      }
       return;
     }
     if (cards.length <= cardListConf.maxStartCards) {
@@ -189,7 +202,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
         onSubmit={handleSearch}
         onRequestChange={handleRequestChange}
         onFilterChange={handleFilterChange}
-        isFormDisabled = {requestStatus===REQ_STATE_LOADING? true: false}
+        isFormDisabled={requestStatus === REQ_STATE_LOADING ? true : false}
       />
       <section className="movies">
         {requestStatus === REQ_STATE_LOADING && <Preloader />}

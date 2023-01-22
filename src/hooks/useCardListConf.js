@@ -1,28 +1,60 @@
 import { useEffect, useState } from "react";
+import {
+  CARDS_IN_ROW_RES_320_540,
+  CARDS_IN_ROW_RES_540_768,
+  CARDS_IN_ROW_RES_768_1024,
+  CARDS_IN_ROW_RES_MORE_1024,
+  MAX_START_CARDS_RES_320_540,
+  MAX_START_CARDS_RES_540_768,
+  MAX_START_CARDS_RES_768_1024,
+  MAX_START_CARDS_RES_MORE_1024,
+  MORE_CARDS_RES_320_540,
+  MORE_CARDS_RES_540_768,
+  MORE_CARDS_RES_768_1024,
+  MORE_CARDS_RES_MORE_1024,
+  RESIZE_DELAY,
+  RES_1024,
+  RES_540,
+  RES_768
+} from "../utils/Constants";
 
 const checkWindowWidth = () => {
-  if (window.innerWidth < 540) {
-    return { cardsInRow: 1, maxStartCards: 5 };
+  const windowWidth = window.innerWidth;
+  if (windowWidth <= RES_540) {
+    return { 
+      cardsInRow: CARDS_IN_ROW_RES_320_540, 
+      maxStartCards: MAX_START_CARDS_RES_320_540, 
+      moreCards: MORE_CARDS_RES_320_540 
+    };
   }
-  if (window.innerWidth >= 540 && window.innerWidth < 768) {
-    return { cardsInRow: 2, maxStartCards: 8 };
+  if (windowWidth > RES_540 && windowWidth <= RES_768) {
+    return { 
+      cardsInRow: CARDS_IN_ROW_RES_540_768, 
+      maxStartCards: MAX_START_CARDS_RES_540_768, 
+      moreCards: MORE_CARDS_RES_540_768 
+    };
   }
-  if (window.innerWidth >= 768 && window.innerWidth < 1024) {
-    return { cardsInRow: 3, maxStartCards: 9 };
+  if (windowWidth > RES_768 && windowWidth <= RES_1024) {
+    return { 
+      cardsInRow: CARDS_IN_ROW_RES_768_1024, 
+      maxStartCards: MAX_START_CARDS_RES_768_1024, 
+      moreCards: MORE_CARDS_RES_768_1024 };
   }
-  if (window.innerWidth > 1024) {
-    return { cardsInRow: 4, maxStartCards: 12 };
+  if (windowWidth > RES_1024) {    
+    return { 
+      cardsInRow: CARDS_IN_ROW_RES_MORE_1024, 
+      maxStartCards: MAX_START_CARDS_RES_MORE_1024, 
+      moreCards: MORE_CARDS_RES_MORE_1024 };
   }
 }
 function useCardListConf() {
-  //const [windowWidth, setWindowWidth] =useState(window.innerWidth);
   const [cardListConf, setCardListConf] = useState(checkWindowWidth());
 
   useEffect(() => {
     const handleResizeWindow = () => {
-      setTimeout(()=>{
+      setTimeout(() => {
         setCardListConf(checkWindowWidth());
-      },500);      
+      }, RESIZE_DELAY);
     }
     window.addEventListener('resize', handleResizeWindow);
     return () => {

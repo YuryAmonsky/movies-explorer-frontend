@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './MovieCard.css';
-import { BEATFILM } from '../../utils/Constants';
+import { BEATFILM, MINUTES_IN_HOUR } from '../../utils/Constants';
 
 function MovieCard({ card, isFavorite, isSavedMoviesOpen, onButtonClick }) {
   
@@ -33,7 +33,7 @@ function MovieCard({ card, isFavorite, isSavedMoviesOpen, onButtonClick }) {
         >
         </button>           
         <hr className="movie-card__stroke" />
-        <span className="movie-card__duration">{`${Math.floor(card.duration / 60)}ч ${card.duration % 60}м`}</span>
+        <span className="movie-card__duration">{`${Math.floor(card.duration / MINUTES_IN_HOUR)}ч ${card.duration % MINUTES_IN_HOUR}м`}</span>
       </a>
     </li >
   );
