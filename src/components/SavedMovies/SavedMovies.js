@@ -9,9 +9,7 @@ import Divider from './Divider/Divider';
 import { mainApi } from '../../utils/MainApi';
 import { filterMovies } from '../../utils/FilterMovies';
 import {    
-  LS_KEY_SAVED_MOVIES, 
-  LS_KEY_SAVED_MOVIES_FILTER, 
-  LS_KEY_SAVED_MOVIES_REQUEST, 
+  LS_KEY_SAVED_MOVIES,   
   REQ_STATE_LOADING,
   REQ_STATE_SUCCESS,
   REQ_STATE_FAILED,
@@ -42,17 +40,13 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
   };
 
   const handleSearch = (request, onlyShortFilms) => {
-    if (request.length === 0) {
-      localStorage.removeItem(LS_KEY_SAVED_MOVIES_REQUEST);
-      localStorage.removeItem(LS_KEY_SAVED_MOVIES_FILTER);
+    if (request.length === 0) {      
       return setRequestStatus(REQ_STATE_EMPTY);
     }
     setRequestStatus(REQ_STATE_LOADING);
     const allSavedCards = JSON.parse(localStorage.getItem(LS_KEY_SAVED_MOVIES));
     const filteredCards = filterMovies(allSavedCards, request, onlyShortFilms, null);
-    setCards(filteredCards);
-    localStorage.setItem(LS_KEY_SAVED_MOVIES_REQUEST, request);
-    localStorage.setItem(LS_KEY_SAVED_MOVIES_FILTER, JSON.stringify(onlyShortFilms));
+    setCards(filteredCards);    
   };
 
   const handleDeleteCard = (card) => {
@@ -69,28 +63,17 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
   }
 
   useEffect(() => {
-    if (requestStatus === '') {
-      let req = '', filter = false;
-      if (localStorage.getItem(LS_KEY_SAVED_MOVIES_REQUEST)) {
-        req = localStorage.getItem(LS_KEY_SAVED_MOVIES_REQUEST);
-        setRequest(req);
-      }
-      if (localStorage.getItem(LS_KEY_SAVED_MOVIES_FILTER)) {
-        filter = JSON.parse(localStorage.getItem(LS_KEY_SAVED_MOVIES_FILTER));
-        setOnlyShortFilms(filter);
-      }
+    if (requestStatus === '') {      
       if (localStorage.getItem(LS_KEY_SAVED_MOVIES)) {
-        const savedMovies = JSON.parse(localStorage.getItem(LS_KEY_SAVED_MOVIES));
-        const filteredCards = filterMovies(savedMovies, req ? req : null, filter, null);
-        setCards(filteredCards);
+        const savedMovies = JSON.parse(localStorage.getItem(LS_KEY_SAVED_MOVIES));        
+        setCards(savedMovies);
       } else {
         mainApi.getCards()
           .then((res) => {
             /** отбираю только карточки текущего пользователя */
             const userCards = filterMovies(res.data, null, null, currentUser._id);
-            localStorage.setItem(LS_KEY_SAVED_MOVIES, JSON.stringify(userCards));
-            const filteredCards = filterMovies(userCards, req ? req : null, filter, null);
-            setCards(filteredCards);
+            localStorage.setItem(LS_KEY_SAVED_MOVIES, JSON.stringify(userCards));            
+            setCards(userCards);
           })
           .catch((err) => {
             console.log(`${err.statusCode}. ${err.message}`);            
@@ -101,14 +84,7 @@ function SavedMovies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
 
     if ((requestStatus === REQ_STATE_SUCCESS || requestStatus === REQ_STATE_NOT_FOUND || requestStatus === REQ_STATE_EMPTY) && filterChanged.current) {
       filterChanged.current = false;
-      const filteredMovies = filterMovies([...JSON.parse(localStorage.getItem(LS_KEY_SAVED_MOVIES))], request, onlyShortFilms, null);
-      if (filteredMovies.length > 0) {
-        localStorage.setItem(LS_KEY_SAVED_MOVIES_REQUEST, request);
-        localStorage.setItem(LS_KEY_SAVED_MOVIES_FILTER, onlyShortFilms);        
-      } else {
-        localStorage.removeItem(LS_KEY_SAVED_MOVIES_REQUEST);
-        localStorage.removeItem(LS_KEY_SAVED_MOVIES_FILTER);
-      }
+      const filteredMovies = filterMovies([...JSON.parse(localStorage.getItem(LS_KEY_SAVED_MOVIES))], request, onlyShortFilms, null);      
       setCards([...filteredMovies]);
     }
   }, [requestStatus, request, onlyShortFilms, currentUser, setNotice]);

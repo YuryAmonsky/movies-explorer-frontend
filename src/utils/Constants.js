@@ -1,5 +1,5 @@
 /** API URLs */
-export const MAIN_API = 'http://localhost:3002';//'https://api.amo.movies-explorer.nomoredomains.club';
+export const MAIN_API = 'https://api.amo.movies-explorer.nomoredomains.club';
 export const BEATFILM = 'https://api.nomoreparties.co';
 
 // eslint-disable-next-line
@@ -16,8 +16,6 @@ export const LS_KEY_MOVIES_REQUEST = 'movies-request';
 export const LS_KEY_MOVIES_FILTER = 'movies-filter';
 export const LS_KEY_MOVIES = 'movies';
 export const LS_KEY_MOVIES_FOUND = 'movies-found';
-export const LS_KEY_SAVED_MOVIES_REQUEST = 'saved-movies-request';
-export const LS_KEY_SAVED_MOVIES_FILTER = 'saved-movies-filter';
 export const LS_KEY_SAVED_MOVIES = 'saved-movies';
 
 /** Состояния запросов фильмов */
