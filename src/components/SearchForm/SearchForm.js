@@ -15,7 +15,6 @@ function SearchForm({
   };
   const HandleFilterChange = (evt) => {
     onFilterChange(evt);
-    console.log(evt.target.checked);
   };
 
   const handleSubmit = (evt) => {

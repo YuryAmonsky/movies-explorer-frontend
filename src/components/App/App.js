@@ -14,7 +14,16 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Notice from '../Notice/Notice';
-import { ALERT_PROFILE_UPDATED, ALERT_USER_REGISTERED } from '../../utils/Constants';
+import { 
+  ALERT_PROFILE_UPDATED, 
+  ALERT_USER_REGISTERED, 
+  LS_KEY_JWT, 
+  LS_KEY_MOVIES, 
+  LS_KEY_MOVIES_FILTER, 
+  LS_KEY_MOVIES_FOUND, 
+  LS_KEY_MOVIES_REQUEST, 
+  LS_KEY_SAVED_MOVIES 
+} from '../../utils/Constants';
 
 
 function App() {
@@ -76,13 +85,12 @@ function App() {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('movies');
-    localStorage.removeItem('saved-movies');
-    localStorage.removeItem('movies-request');
-    localStorage.removeItem('movies-filter');
-    localStorage.removeItem('saved-movies-request');
-    localStorage.removeItem('saved-movies-filter');
+    localStorage.removeItem(LS_KEY_JWT);
+    localStorage.removeItem(LS_KEY_MOVIES);
+    localStorage.removeItem(LS_KEY_SAVED_MOVIES);
+    localStorage.removeItem(LS_KEY_MOVIES_FOUND);
+    localStorage.removeItem(LS_KEY_MOVIES_REQUEST);
+    localStorage.removeItem(LS_KEY_MOVIES_FILTER);   
     mainApi.setAuthorization('');
     setCurrentUser({ _id: '', name: '', email: '', isLoggedIn: false });
   }

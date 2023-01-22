@@ -11,9 +11,11 @@ export const INVLAID_EMAIL = 'E-mail: Неверный формат адреса
 export const INVLAID_PASSWORD = 'Пароль: должен содержать не менее 8 символов';
 
 /** Названия ключей сохраняемых в LocalStorage */
+export const LS_KEY_JWT = 'jwt';
 export const LS_KEY_MOVIES_REQUEST = 'movies-request';
 export const LS_KEY_MOVIES_FILTER = 'movies-filter';
 export const LS_KEY_MOVIES = 'movies';
+export const LS_KEY_MOVIES_FOUND = 'movies-found';
 export const LS_KEY_SAVED_MOVIES_REQUEST = 'saved-movies-request';
 export const LS_KEY_SAVED_MOVIES_FILTER = 'saved-movies-filter';
 export const LS_KEY_SAVED_MOVIES = 'saved-movies';

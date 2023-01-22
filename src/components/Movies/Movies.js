@@ -15,6 +15,7 @@ import {
   ALERT_REQUEST_IS_EMPTY,
   LS_KEY_MOVIES,
   LS_KEY_MOVIES_FILTER,
+  LS_KEY_MOVIES_FOUND,
   LS_KEY_MOVIES_REQUEST,
   LS_KEY_SAVED_MOVIES,
   REQ_STATE_EMPTY,
@@ -64,6 +65,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
       if (filteredMovies.length > 0) {
         localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
         localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
+        localStorage.setItem(LS_KEY_MOVIES_FOUND,JSON.stringify(filteredMovies));
         setCards([...filteredMovies]);
         setRequestStatus(REQ_STATE_SUCCESS);
       } else {
@@ -73,11 +75,12 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
       getMovies()
         .then((res) => {
           localStorage.setItem(LS_KEY_MOVIES, JSON.stringify(res));
-          const movies = filterMovies([...res], request, onlyShortFilms, null);
-          if (movies.length > 0) {
+          const filteredMovies = filterMovies([...res], request, onlyShortFilms, null);
+          if (filteredMovies.length > 0) {
             localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
             localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
-            setCards([...movies]);
+            localStorage.setItem(LS_KEY_MOVIES_FOUND,JSON.stringify(filteredMovies));
+            setCards([...filteredMovies]);
             setRequestStatus(REQ_STATE_SUCCESS);
           } else {
             setRequestStatus(REQ_STATE_NOT_FOUND);
@@ -139,8 +142,8 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
         durationFilter = JSON.parse(localStorage.getItem(LS_KEY_MOVIES_FILTER));
         setOnlyShortFilms(durationFilter);
       }
-      if (localStorage.getItem(LS_KEY_MOVIES)) {
-        movies = JSON.parse(localStorage.getItem(LS_KEY_MOVIES));
+      if (localStorage.getItem(LS_KEY_MOVIES_FOUND)) {
+        movies = JSON.parse(localStorage.getItem(LS_KEY_MOVIES_FOUND));
         setCards([...filterMovies(movies, req, durationFilter, null)]);
         setRequestStatus(REQ_STATE_SUCCESS);
       }
@@ -162,11 +165,12 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
 
     if ((requestStatus === REQ_STATE_SUCCESS || requestStatus === REQ_STATE_NOT_FOUND) && filterChanged.current) {
       filterChanged.current = false;
-      const movies = filterMovies([...JSON.parse(localStorage.getItem(LS_KEY_MOVIES))], request, onlyShortFilms, null);
-      if (movies.length > 0) {
+      const filteredMovies = filterMovies([...JSON.parse(localStorage.getItem(LS_KEY_MOVIES))], request, onlyShortFilms, null);
+      if (filteredMovies.length > 0) {
         localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
         localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
-        setCards([...movies]);
+        localStorage.setItem(LS_KEY_MOVIES_FOUND,JSON.stringify(filteredMovies));
+        setCards([...filteredMovies]);
         setRequestStatus(REQ_STATE_SUCCESS);
       } else {
         localStorage.removeItem(LS_KEY_MOVIES_REQUEST);
@@ -185,11 +189,13 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
       }
       return;
     }
+    setCardsToShow(cardListConf.maxStartCards);
+    /*
     if (cards.length <= cardListConf.maxStartCards) {
-      setCardsToShow(cards.length);
+      setCardsToShow(cardListConf.maxStartCards);
     } else {
       setCardsToShow(cardListConf.maxStartCards);
-    }
+    }*/
 
   }, [cards, cardListConf, cardsToShow]);
 
