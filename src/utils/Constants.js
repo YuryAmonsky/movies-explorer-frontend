@@ -19,6 +19,7 @@ export const LS_KEY_MOVIES_FOUND = 'movies-found';
 export const LS_KEY_SAVED_MOVIES = 'saved-movies';
 
 /** Состояния запросов фильмов */
+export const REQ_STATE_INITIAL = '';
 export const REQ_STATE_LOADING = 'loading';
 export const REQ_STATE_EMPTY = 'isEmpty';
 export const REQ_STATE_NOT_FOUND = 'notFound';

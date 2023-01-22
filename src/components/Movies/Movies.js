@@ -20,6 +20,7 @@ import {
   LS_KEY_SAVED_MOVIES,
   REQ_STATE_EMPTY,
   REQ_STATE_FAILED,
+  REQ_STATE_INITIAL,
   REQ_STATE_LOADING,
   REQ_STATE_NOT_FOUND,
   REQ_STATE_SUCCESS
@@ -55,35 +56,42 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
     if (request.length === 0) {
       localStorage.removeItem(LS_KEY_MOVIES_REQUEST);
       localStorage.removeItem(LS_KEY_MOVIES_FILTER);
-      return setRequestStatus(REQ_STATE_EMPTY);
+      localStorage.removeItem(LS_KEY_MOVIES_FOUND);
+      setRequestStatus(REQ_STATE_EMPTY);
+      setCards([]);
+      return ;
     }
     setRequestStatus(REQ_STATE_LOADING);
 
     if (localStorage.getItem(LS_KEY_MOVIES)) {
+      localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
+      localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
       const movies = JSON.parse(localStorage.getItem(LS_KEY_MOVIES));
       const filteredMovies = filterMovies(movies, request, onlyShortFilms, null);
-      if (filteredMovies.length > 0) {
-        localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
-        localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
+      if (filteredMovies.length > 0) {        
         localStorage.setItem(LS_KEY_MOVIES_FOUND,JSON.stringify(filteredMovies));
         setCards([...filteredMovies]);
         setRequestStatus(REQ_STATE_SUCCESS);
       } else {
+        localStorage.removeItem(LS_KEY_MOVIES_FOUND);
         setRequestStatus(REQ_STATE_NOT_FOUND);
+        setCards([]);
       }
     } else {
       getMovies()
         .then((res) => {
           localStorage.setItem(LS_KEY_MOVIES, JSON.stringify(res));
+          localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
+          localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
           const filteredMovies = filterMovies([...res], request, onlyShortFilms, null);
-          if (filteredMovies.length > 0) {
-            localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
-            localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
+          if (filteredMovies.length > 0) {            
             localStorage.setItem(LS_KEY_MOVIES_FOUND,JSON.stringify(filteredMovies));
             setCards([...filteredMovies]);
             setRequestStatus(REQ_STATE_SUCCESS);
           } else {
+            localStorage.removeItem(LS_KEY_MOVIES_FOUND);
             setRequestStatus(REQ_STATE_NOT_FOUND);
+            setCards([]);
           }
         })
         .catch(() => {
@@ -132,11 +140,13 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
   }
 
   useEffect(() => {
-    if (requestStatus === '') {
+    if (requestStatus === REQ_STATE_INITIAL) {
       let req = '', durationFilter = false, movies = [];
       if (localStorage.getItem(LS_KEY_MOVIES_REQUEST)) {
         req = localStorage.getItem(LS_KEY_MOVIES_REQUEST);
         setRequest(req);
+      }else{
+        setRequestStatus(REQ_STATE_INITIAL);
       }
       if (localStorage.getItem(LS_KEY_MOVIES_FILTER)) {
         durationFilter = JSON.parse(localStorage.getItem(LS_KEY_MOVIES_FILTER));
@@ -146,6 +156,11 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
         movies = JSON.parse(localStorage.getItem(LS_KEY_MOVIES_FOUND));
         setCards([...filterMovies(movies, req, durationFilter, null)]);
         setRequestStatus(REQ_STATE_SUCCESS);
+      }else{
+        if(req){
+          setRequestStatus(REQ_STATE_NOT_FOUND);
+        }        
+        setCards([]);
       }
       if (localStorage.getItem(LS_KEY_SAVED_MOVIES)) {
         const savedMovies = JSON.parse(localStorage.getItem(LS_KEY_SAVED_MOVIES));
@@ -165,6 +180,16 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
 
     if ((requestStatus === REQ_STATE_SUCCESS || requestStatus === REQ_STATE_NOT_FOUND) && filterChanged.current) {
       filterChanged.current = false;
+      if (request.length === 0) {
+        localStorage.removeItem(LS_KEY_MOVIES_REQUEST);
+        localStorage.removeItem(LS_KEY_MOVIES_FILTER);
+        localStorage.removeItem(LS_KEY_MOVIES_FOUND);
+        setRequestStatus(REQ_STATE_EMPTY);
+        setCards([]);
+        return ;
+      }
+      localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
+      localStorage.setItem(LS_KEY_MOVIES_FILTER, onlyShortFilms);
       const filteredMovies = filterMovies([...JSON.parse(localStorage.getItem(LS_KEY_MOVIES))], request, onlyShortFilms, null);
       if (filteredMovies.length > 0) {
         localStorage.setItem(LS_KEY_MOVIES_REQUEST, request);
@@ -172,10 +197,9 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
         localStorage.setItem(LS_KEY_MOVIES_FOUND,JSON.stringify(filteredMovies));
         setCards([...filteredMovies]);
         setRequestStatus(REQ_STATE_SUCCESS);
-      } else {
-        localStorage.removeItem(LS_KEY_MOVIES_REQUEST);
-        localStorage.removeItem(LS_KEY_MOVIES_FILTER);
+      } else {        
         setRequestStatus(REQ_STATE_NOT_FOUND);
+        setCards([]);
       }
     }
   }, [requestStatus, request, onlyShortFilms, currentUser]);
@@ -189,13 +213,7 @@ function Movies({ isBurgerMenuOpen, onBurgerMenuClose, setNotice }) {
       }
       return;
     }
-    setCardsToShow(cardListConf.maxStartCards);
-    /*
-    if (cards.length <= cardListConf.maxStartCards) {
-      setCardsToShow(cardListConf.maxStartCards);
-    } else {
-      setCardsToShow(cardListConf.maxStartCards);
-    }*/
+    setCardsToShow(cardListConf.maxStartCards);    
 
   }, [cards, cardListConf, cardsToShow]);
 
