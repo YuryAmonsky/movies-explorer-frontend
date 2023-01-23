@@ -1,6 +1,10 @@
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { mainApi } from '../../utils/MainApi';
 import Main from '../Main/Main';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -9,13 +13,30 @@ import Footer from '../Footer/Footer';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import { useEffect, useState } from 'react';
+import Notice from '../Notice/Notice';
+import { 
+  ALERT_PROFILE_UPDATED, 
+  ALERT_USER_REGISTERED, 
+  LS_KEY_JWT, 
+  LS_KEY_MOVIES, 
+  LS_KEY_MOVIES_FILTER, 
+  LS_KEY_MOVIES_FOUND, 
+  LS_KEY_MOVIES_REQUEST, 
+  LS_KEY_SAVED_MOVIES 
+} from '../../utils/Constants';
+
 
 function App() {
+  /** Состояния */
+  const [initialized, setInitialized] = useState(false);
+  const [currentUser, setCurrentUser] = useState({ '_id': '', 'name': '', 'email': '', 'isLoggedIn': false });
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const [noticeState, setNoticeState] = useState({ message: '', isOpen: false, isSuccess: false });
+  const [isFormDisaled, setisFormDisabled] = useState(false);
   const history = useHistory();
-  const location = useLocation();
-  const handleLogin = () => {
+
+  /** Обработчики */
+  const handleLoginButtonClick = () => {
     history.push('/signin');
   }
   const handleBurgerClick = () => {
@@ -25,84 +46,207 @@ function App() {
     setIsBurgerMenuOpen(false);
   }
 
-  const handleFormSubmit = () => {
-    history.push('/movies');
+  const handleRegister = (name, email, password) => {
+    setisFormDisabled(true);
+    mainApi.register(name, email, password)
+      .then(res => {
+        setNoticeState({ message: ALERT_USER_REGISTERED, isOpen: true, isSuccess: true });
+        return mainApi.login(email, password);
+      })
+      .then(loginRes => {
+        localStorage.setItem('jwt', loginRes.token);
+        mainApi.setAuthorization(loginRes.token);
+        setCurrentUser({ ...loginRes.user, isLoggedIn: true });
+      })
+      .catch(err => {
+        console.log(`${err.statusCode}. ${err.message}`);
+        setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
+      })
+      .finally(()=>{
+        setisFormDisabled(false);
+      });      
   }
 
-  useEffect(() => {
-    if (location.pathname === '/') {
-      setIsBurgerMenuOpen(false);
-    }
-  }, [location]);
+  const handleLogin = (email, password) => {
+    setisFormDisabled(true);
+    mainApi.login(email, password)
+      .then((res) => {
+        localStorage.setItem('jwt', res.token);
+        mainApi.setAuthorization(res.token);
+        setCurrentUser({ ...res.user, isLoggedIn: true });
+      })
+      .catch(err => {
+        console.log(`${err.statusCode}. ${err.message}`);
+        setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
+      })
+      .finally(()=>{
+        setisFormDisabled(false);
+      });
+  }
 
-  return (
-    <div className="app">
-      <Switch>
-        <Route exact path="/">
-          <Header
-            isLanding={true}
-            onButtonClick={handleLogin}
-          >
-          </Header>
-          <main>
-            <Main />
-          </main>
-          <Footer />
-        </Route>
-        <Route exact path="/signup">
-          <main>
-            <Register onSubmit={handleFormSubmit} />
-          </main>
-        </Route>
-        <Route exact path="/signin">
-          <main>
-            <Login onSubmit={handleFormSubmit} />
-          </main>
-        </Route>
-        <Route path="/movies">
-          <Header
-            isLanding={false}
-            onBurgerClick={handleBurgerClick}
+  const handleLogout = () => {
+    localStorage.removeItem(LS_KEY_JWT);
+    localStorage.removeItem(LS_KEY_MOVIES);
+    localStorage.removeItem(LS_KEY_SAVED_MOVIES);
+    localStorage.removeItem(LS_KEY_MOVIES_FOUND);
+    localStorage.removeItem(LS_KEY_MOVIES_REQUEST);
+    localStorage.removeItem(LS_KEY_MOVIES_FILTER);   
+    mainApi.setAuthorization('');
+    setCurrentUser({ _id: '', name: '', email: '', isLoggedIn: false });
+  }
+
+  const handleEditProfile = (name, email) => {
+    setisFormDisabled(true);
+    mainApi.updateUserData(name, email)
+      .then((res) => {
+        setNoticeState({ message: ALERT_PROFILE_UPDATED, isOpen: true, isSuccess: true });
+        setCurrentUser({ ...res.data, isLoggedIn: currentUser.isLoggedIn });
+      })
+      .catch((err) => {
+        console.log(`${err.statusCode}. ${err.message}`);
+        setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
+      })
+      .finally(()=>{
+        setisFormDisabled(false);
+      });
+  };
+
+  const handleNoticeButtonClick = () => {
+    setNoticeState({ message: '', isOpen: false, isSuccess: false });
+  };
+
+  /** Эффекты */
+  useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      mainApi.setAuthorization(localStorage.getItem('jwt'));
+      mainApi.getUserData()
+        .then((res) => {
+          setCurrentUser({ ...res.data, isLoggedIn: true });
+        })
+        .catch((err) => {
+          console.log(`${err.statusCode}. ${err.message}`);
+          setNoticeState({ message: err.message, isOpen: true, isSuccess: false });
+        })
+        .finally(() => {
+          setInitialized(true);
+        });
+    } else {
+      mainApi.setAuthorization('');
+      setInitialized(true);
+    }
+  }, []);
+
+  if (initialized) {
+    return (
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="app">
+          <Switch>
+            <Route exact path="/">
+              <Header
+                isLanding={true}
+                onButtonClick={handleLoginButtonClick}
+                onBurgerClick={handleBurgerClick}
+              >
+              </Header>
+              <main>
+                <Main
+                  isBurgerMenuOpen={isBurgerMenuOpen}
+                  onBurgerMenuClose={handleBurgerMenuClose}
+                />
+              </main>
+              <Footer />
+            </Route>
+            <Route exact path="/signup">
+              {currentUser.isLoggedIn ?
+                <Redirect to="/movies" />
+                :
+                <main>
+                  <Register 
+                    onSubmit={handleRegister} 
+                    isFormDisabled={isFormDisaled} 
+                  />
+                </main>
+              }
+            </Route>
+            <Route exact path="/signin">
+              {currentUser.isLoggedIn ?
+                <Redirect to="/movies" />
+                :
+                <main>
+                  <Login
+                    onSubmit={handleLogin}
+                    isFormDisabled={isFormDisaled}
+                  />
+                </main>
+              }
+            </Route>
+
+            <ProtectedRoute exact path="/movies" loggedIn={currentUser.isLoggedIn}>
+              <Header
+                isLanding={false}
+                onButtonClick={handleLoginButtonClick}
+                onBurgerClick={handleBurgerClick}
+              />
+              <main>
+                <Movies
+                  isBurgerMenuOpen={isBurgerMenuOpen}
+                  onBurgerMenuClose={handleBurgerMenuClose}
+                  setNoticeState={setNoticeState}
+                />
+              </main>
+              <Footer />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/saved-movies" loggedIn={currentUser.isLoggedIn}>
+              <Header
+                isLanding={false}
+                onButtonClick={handleLoginButtonClick}
+                onBurgerClick={handleBurgerClick}
+              />
+              <main>
+                <SavedMovies
+                  isBurgerMenuOpen={isBurgerMenuOpen}
+                  onBurgerMenuClose={handleBurgerMenuClose}
+                  setNoticeState={setNoticeState}
+                />
+              </main>
+              <Footer />
+            </ProtectedRoute>
+
+            <ProtectedRoute exact path="/profile" loggedIn={currentUser.isLoggedIn}>
+              <Header
+                isLanding={false}
+                onButtonClick={handleLoginButtonClick}
+                onBurgerClick={handleBurgerClick}
+              />
+              <main>
+                <Profile
+                  isBurgerMenuOpen={isBurgerMenuOpen}
+                  onBurgerMenuClose={handleBurgerMenuClose}
+                  onEditProfile={handleEditProfile}
+                  onLogout={handleLogout}
+                  isFormDisabled={isFormDisaled}
+                />
+              </main>
+            </ProtectedRoute>
+
+            <Route path="*">
+              <PageNotFound />
+            </Route>
+          </Switch>
+          <Notice
+            isOpen={noticeState.isOpen}
+            message={noticeState.message}
+            isSuccess={noticeState.isSuccess}
+            onButtonClick={handleNoticeButtonClick}
           />
-          <main>
-            <Movies
-              isBurgerMenuOpen={isBurgerMenuOpen}
-              onBurgerMenuClose={handleBurgerMenuClose}
-            />
-          </main>
-          <Footer />
-        </Route>
-        <Route path="/saved-movies">
-          <Header
-            isLanding={false}
-            onBurgerClick={handleBurgerClick}
-          />
-          <main>
-            <SavedMovies
-              isBurgerMenuOpen={isBurgerMenuOpen}
-              onBurgerMenuClose={handleBurgerMenuClose}
-            />
-          </main>
-          <Footer />
-        </Route>
-        <Route path="/profile">
-          <Header
-            isLanding={false}
-            onBurgerClick={handleBurgerClick}
-          />
-          <main>
-            <Profile
-              isBurgerMenuOpen={isBurgerMenuOpen}
-              onBurgerMenuClose={handleBurgerMenuClose}
-            />
-          </main>
-        </Route>
-        <Route path="*">
-          <PageNotFound />
-        </Route>
-      </Switch>
-    </div>
-  );
+        </div>
+      </CurrentUserContext.Provider>
+    );
+  } else {
+    return <></>;
+  }
+
 }
 
 export default App;

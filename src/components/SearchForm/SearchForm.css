@@ -21,7 +21,6 @@
   font-weight: 500;
   font-size: 28px;
   line-height: 34px;
-  /* identical to box height */
 }
 
 .search-form__input:hover {
@@ -30,7 +29,6 @@
 }
 
 .search-form__input:focus {
-  /*outline: none;*/
   outline: 1px solid #00000060;
   border-radius: 8px;
 }
@@ -81,7 +79,7 @@
   cursor: pointer;
 }
 
-.search-form__filter::before {
+.search-form__filter::after {
   content: '';
   display: inline-block;
   width: 36px;
@@ -89,15 +87,20 @@
   background-image: url(../../images/ui/smalltumboff.svg);
 }
 
-.search-form__filter:checked::before {
+.search-form__filter:checked::after {
+  content: '';
+  display: inline-block;
+  width: 36px;
+  height: 20px;
   background-image: url(../../images/ui/smalltumb.svg);
 }
 
 .search-form__filter:focus {
-  outline: none; 
+  outline: none;
+  background: none; 
 }
 
-.search-form__filter:focus::before {
+.search-form__filter:focus::after {
   outline: 1px solid #00000060;
   border-radius: 8px;
 }
@@ -108,7 +111,7 @@
   line-height: 18px;
 }
 
-@media screen and (max-width: 1297px) {
+@media screen and (max-width: 1279px) {
   .search-form {
     padding: calc(80px - 10 * (100vw - 768px)/511) calc(30px + 40 * (100vw - 768px)/511) calc(60px - 14 * (100vw - 768px)/511);
   }

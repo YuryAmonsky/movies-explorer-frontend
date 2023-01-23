@@ -1,10 +1,21 @@
 import React from "react";
+import { useFormValidator } from "../../hooks/useFormValidator";
 import AuthForm from "../AuthForm/AuthForm";
 
-function Login({onSubmit}) {
+function Login({ onSubmit, isFormDisabled }) {
+  const { inputs, isValid, handleChange } = useFormValidator();
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit(inputs.email.value, inputs.password.value);
+  }
 
   return (
-    <AuthForm isRegForm={false} onSubmit={onSubmit}>      
+    <AuthForm 
+      isRegForm={false} 
+      onSubmit={handleSubmit} 
+      isValid={isValid}
+      isFormDisabled = {isFormDisabled}
+    >
       <label className="form__input-label">E-mail</label>
       <input
         className="form__input"
@@ -13,7 +24,10 @@ function Login({onSubmit}) {
         type="email"
         placeholder="Email"
         required
+        disabled = {isFormDisabled}
         autoComplete="off"
+        onChange={handleChange}
+        value={inputs.email?.value || ""}
       />
       <label className="form__input-label">Пароль</label>
       <input
@@ -24,10 +38,25 @@ function Login({onSubmit}) {
         placeholder="Пароль"
         minLength="8"
         required
+        disabled = {isFormDisabled}
         autoComplete="off"
+        onChange={handleChange}
+        value={inputs.password?.value || ""}
       />
-      <span className="form__error-hint">Что-то пошло не так...</span>
-    </AuthForm>    
+      <span className="form__error-hint">
+        {(()=>{
+            let err = '';            
+            if( inputs.email?.error){
+              err += inputs.email?.error + '\n\n\r';
+            }
+            if(inputs.password?.error){
+              err += inputs.password?.error;
+            }            
+            return err;
+          })()
+        }
+      </span>      
+    </AuthForm>
   );
 }
 

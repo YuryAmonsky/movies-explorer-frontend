@@ -3,12 +3,22 @@ import Promo from './Promo/Promo';
 import AboutProject from './AboutProject/AboutProject';
 import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 
-function Main(){
+function Main({ isBurgerMenuOpen, onBurgerMenuClose }){
+  const handlePromoButtonClick = (yCoord)=>{
+    window.scrollTo({
+      top: yCoord,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
   return (
     <>
-      <Promo />
+      <BurgerMenu isOpen={isBurgerMenuOpen} onClose={onBurgerMenuClose} />
+      <Promo onButtonClick={handlePromoButtonClick}/>
       <AboutProject/>
       <Techs/>
       <AboutMe/>

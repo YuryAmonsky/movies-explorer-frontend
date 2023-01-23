@@ -1,0 +1,20 @@
+.tooltip {
+  margin: 0;
+  padding: 70px 70px 10px;
+  box-sizing: border-box;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+@media screen and (max-width:1279px) {
+  .card-list {
+    padding: 70px calc(30px + 40 * (100vw - 768px)/511) 10px;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .card-list {
+    padding: calc(40px + 30 * (100vw - 320px)/448) calc(10px + 20 * (100vw - 320px)/448) 10px;    
+  }
+}

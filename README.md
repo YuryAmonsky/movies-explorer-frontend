@@ -1,10 +1,16 @@
 # movies-explorer-frontend
 
-Перейти на страницу Фильмы (/movies)  можно со траниц Регистрации или Входа по нажатию  
-соответствующих кнопок после ввода любых валидных данных в форму.
-Также можно открыть необходимые страницы, введя их роуты в адресной строке браузера.
+## Этап 4: Функциональность на «React» и JS
+  
+## Ссылка на pull request
+
+https://github.com/YuryAmonsky/movies-explorer-frontend/pull/2
+
+## Домены
+
+frontend - amo.movies-explorer.nomoredomains.club  
+backend - api.amo.movies-explorer.nomoredomains.club
 
 ## Ссылка на файл с макетом
 
 https://disk.yandex.ru/d/YIvbcTk_mS4Ayw
-  

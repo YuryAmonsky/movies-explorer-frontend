@@ -1,28 +1,40 @@
-import React from 'react';
+import { useEffect } from 'react';
 import './MovieCard.css';
+import { BEATFILM, MINUTES_IN_HOUR } from '../../utils/Constants';
 
+function MovieCard({ card, isFavorite, isSavedMoviesOpen, onButtonClick }) {
+  
+  const handleButtonClick = (evt) => {
+    evt.preventDefault();
+    onButtonClick(card)
+  }
 
-function MovieCard({ link, caption, favorite, duration, isSavedMoviesOpen }) {
+  useEffect(()=>{
+    if(isSavedMoviesOpen){
+      
+    }
+  },[isSavedMoviesOpen])
   return (
     <li className="movie-card">
-      <img className="movie-card__thumbnail" src={link} alt={`Кадр из фильма ${caption}`}></img>
-      <span className="movie-card__caption">{caption}</span>
-      {
-        isSavedMoviesOpen ?
-          <button
-            className="movie-card__button movie-card__type_delete"
-            type="button"
-          >
-          </button>
-        :
-          <button
-            className={`movie-card__button movie-card__type_favorite${favorite ? " movie-card__type_favorite-active" : ""}`}
-            type="button"
-          >
-          </button>
-      }
-      <hr className="movie-card__stroke" />
-      <span className="movie-card__duration">{duration}</span>
+      <a className="movie-card__link" href={card.trailerLink} target="_blank" rel="noreferrer">
+        <img 
+          className="movie-card__thumbnail"
+          src={!isSavedMoviesOpen? `${BEATFILM}${card.image.url}`: card.image}
+          alt={`Кадр из фильма ${card.nameRU}`}
+        >          
+        </img>
+        <span className="movie-card__caption">{card.nameRU}</span>
+        <button
+          className={`movie-card__button ${isSavedMoviesOpen ? "movie-card__button_type_delete" :
+            isFavorite ? " movie-card__button_type_favorite-active" : "movie-card__button_type_favorite"}`
+          }  
+          type="button"
+          onClick={handleButtonClick}
+        >
+        </button>           
+        <hr className="movie-card__stroke" />
+        <span className="movie-card__duration">{`${Math.floor(card.duration / MINUTES_IN_HOUR)}ч ${card.duration % MINUTES_IN_HOUR}м`}</span>
+      </a>
     </li >
   );
 }
